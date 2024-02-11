@@ -27,7 +27,7 @@
 		"shot_5" : "img/shot_5.png",
 		"shot_6" : "img/shot_6.png"
 	},
-
+	
 	"bg":{
 		"speed" : 5,
 		"direction" : -1,
@@ -46,6 +46,26 @@
 				"key": "bg_3",
 				"height_rate" : 0.60,
 				"offset_rate" : 1.0
+			}
+		]
+	},
+
+	"build":{
+		"speed" : 7,
+		"start":[
+			{
+				"key": "build_1"
+			}
+		],
+		"items":[
+			{
+				"key": "build_1"
+			},
+			{
+				"key": "build_2"
+			},
+			{
+				"key": "build_3"
 			}
 		]
 	}

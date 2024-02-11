@@ -2,7 +2,7 @@ import { Init }      from "./init.js"
 import { Load }      from "./load.js"
 import { Canvas }    from "./canvas.js"
 import { Bg }        from "./bg.js"
-import { Animation } from "./animation.js"
+import { Build }     from "./build.js"
 
 class Main{
 	constructor(){
@@ -12,8 +12,8 @@ class Main{
 
 	loaded(){
 		new Canvas()
-		new Bg(100)
-		new Animation()
+		new Bg()
+		new Build()
 	}
 }
 

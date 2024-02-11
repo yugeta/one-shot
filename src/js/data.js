@@ -6,9 +6,5 @@ export class Data{
 	static setting = {}
 	static images = []
 
-	// static get bg(){
-	// 	return this.images.find(e => e.key === "bg_0")
-	// }
-
 	
 }

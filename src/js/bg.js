@@ -1,11 +1,12 @@
 import { Data }   from "./data.js"
 
 export class Bg{
-	offset_px      = 0
+	offset_px = 0
 
 	constructor(offset_px =0){
 		this.offset_px = offset_px
 		this.view()
+		this.animation()
 	}
 
 	view(){
@@ -20,7 +21,6 @@ export class Bg{
 			}, layer.height_rate)
 			let scroll_px = (this.offset_px * layer.offset_rate) * Data.setting.bg.direction 
 			scroll_px = this.calc_scroll_offset(scroll_px, size.w)
-			// console.log(scroll_px)
 			this.bg_layer(img , size, scroll_px)
 		}
 	}
@@ -36,8 +36,6 @@ export class Bg{
 	}
 	
 	bg_layer(img, size , scroll_px){
-		
-
 		const count = this.calc_count(size.w, scroll_px)
 
 		for(let i=0; i<count; i++){
@@ -45,7 +43,6 @@ export class Bg{
 				x : i * size.w + scroll_px,
 				y : Data.canvas.height - size.h,
 			}
-			// console.log(pos)
 			Data.ctx.drawImage(img.data, pos.x, pos.y, size.w, size.h)
 		}
 	}
@@ -60,11 +57,11 @@ export class Bg{
 
 	calc_scroll_offset(scroll_px, width){
 		switch(Data.setting.bg.direction){
+			
 			// 左スクロール
 			case -1:
 				if(scroll_px <= -width){
 					scroll_px = ~~((scroll_px - width) % width)
-					// scroll_px = scroll_px - width
 				}
 			break
 
@@ -78,5 +75,12 @@ export class Bg{
 
 	calc_count(width, offset){
 		return Math.ceil((Data.canvas.width + (offset * Data.setting.bg.direction)) / width)
+	}
+
+	animation(){
+		this.offset_px += Data.setting.bg.speed
+		this.view()
+
+		window.requestAnimationFrame(this.animation.bind(this))
 	}
 }

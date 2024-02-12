@@ -85,7 +85,7 @@ export class Build{
 			)
 			offset += build.w + build.gap
 		}
-		this.offset_px += Data.setting.build.speed
+		this.offset_px += Data.speed(Data.setting.build.speed)
 	}
 
 	rebuild_builds(){

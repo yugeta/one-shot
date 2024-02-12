@@ -34,7 +34,7 @@ export class Bg{
 				h : img.h * height_rate * (layer.height_rate || 1),
 			}
 			const pos = {
-				x : this.check_offset_x(layer.pos.x + layer.speed * Data.setting.bg.direction , size.w),
+				x : this.check_offset_x(layer.pos.x + Data.speed(layer.speed) * Data.setting.bg.direction , size.w),
 				y : layer.pos.y,
 			}
 			const count = this.calc_count(size.w, pos.x)

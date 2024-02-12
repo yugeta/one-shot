@@ -27,6 +27,8 @@
 		"shot_5" : "img/shot_5.png",
 		"shot_6" : "img/shot_6.png"
 	},
+
+	"speed" : 0.5,
 	
 	"bg":{
 		"direction" : -1,

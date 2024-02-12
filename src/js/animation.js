@@ -12,7 +12,8 @@ export class Animation{
 	run(){
 		Canvas.clear()
 		this.bg.view()
-		// this.build.view()
+		this.build.view()
 		window.requestAnimationFrame(this.run.bind(this))
+		// setTimeout(this.run.bind(this) , 200)
 	}
 }

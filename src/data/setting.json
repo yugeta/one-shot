@@ -29,15 +29,13 @@
 	},
 	
 	"bg":{
-		"speed" : 3,
 		"direction" : -1,
 		"color" : ["#061146","#1c3be1"],
 		"leyers" : [
 			{
 				"key": "bg_1",
 				"height_rate" : 0.70,
-				"offset_rate" : 0.2,
-				"offset"   : 1,
+				"speed"   : 1,
 				"pos" : {
 					"x" : 0,
 					"y" : 0
@@ -46,8 +44,7 @@
 			{
 				"key": "bg_2",
 				"height_rate" : 0.65,
-				"offset_rate" : 0.6,
-				"offset"   : 2,
+				"speed"   : 2,
 				"pos" : {
 					"x" : 0,
 					"y" : 0
@@ -56,20 +53,7 @@
 			{
 				"key": "bg_3",
 				"height_rate" : 0.60,
-				"offset_rate" : 1.0,
-				"offset"   : 3,
-				"pos" : {
-					"x" : 0,
-					"y" : 0
-				}
-			}
-		],
-		"leyers2" : [
-			{
-				"key": "bg_3",
-				"height_rate" : 0.60,
-				"offset_rate" : 1.0,
-				"offset"   : 3,
+				"speed"   : 3,
 				"pos" : {
 					"x" : 0,
 					"y" : 0
@@ -79,7 +63,7 @@
 	},
 
 	"build":{
-		"speed" : 3,
+		"speed" : 4,
 		"start":[
 			{
 				"key": "build_1"

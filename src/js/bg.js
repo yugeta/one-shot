@@ -3,29 +3,17 @@ import { Data }   from "./data.js"
 export class Bg{
 	offset_px = 0
 
-	constructor(offset_px =0){
-		this.offset_px = offset_px
+	constructor(){
 		this.view()
-		this.animation()
 	}
 
 	view(){
-		this.bg_0()
-
-		for(const layer of Data.setting.bg.leyers){
-			const img = Data.images.find(e => e.key === layer.key)
-			if(!img){continue}
-			const size = this.calc_size({
-				w : img.w,
-				h : img.h,
-			}, layer.height_rate)
-			let scroll_px = (this.offset_px * layer.offset_rate) * Data.setting.bg.direction 
-			scroll_px = this.calc_scroll_offset(scroll_px, size.w)
-			this.bg_layer(img , size, scroll_px)
-		}
+		// this.static()
+		this.layers()
 	}
 
-	bg_0(){
+	// 固定背景
+	static(){
 		const img = Data.images.find(e => e.key === "bg_0")
 		if(!img){return}
 		const size = {
@@ -34,53 +22,61 @@ export class Bg{
 		}
     Data.ctx.drawImage(img.data, 0, 0, size.w, size.h)
 	}
-	
-	bg_layer(img, size , scroll_px){
-		const count = this.calc_count(size.w, scroll_px)
+
+	// 
+	layers(){
+		for(const layer of Data.setting.bg.leyers){
+			const img = Data.images.find(e => e.key === layer.key)
+			if(!img){continue}
+			const height_rate = this.height_rate(img.h)
+			const size = {
+				w : img.w * height_rate * (layer.height_rate || 1),
+				h : img.h * height_rate * (layer.height_rate || 1),
+			}
+			const pos = {
+				x : this.check_offset_x(layer.pos.x + layer.offset * Data.setting.bg.direction , size.w),
+				y : layer.pos.y,
+			}
+			const count = this.calc_count(size.w, pos.x)
+			for(let i=0; i<count; i++){
+				const x = i * size.w + pos.x
+				const y = Data.canvas.height - size.h + pos.y
+				Data.ctx.drawImage(img.data, x, y, size.w, size.h)
+			}
+
+			layer.pos.x = pos.x
+		}
+	}
+
+	bg_layer(img, size , pos){
+		const count = this.calc_count(size.w, pos.x)
 
 		for(let i=0; i<count; i++){
-			const pos = {
-				x : i * size.w + scroll_px,
-				y : Data.canvas.height - size.h,
+			pos = {
+				x : i * size.w + pos.x,
+				y : Data.canvas.height - size.h + pos.y,
 			}
 			Data.ctx.drawImage(img.data, pos.x, pos.y, size.w, size.h)
 		}
 	}
 
-	calc_size(img_size, size=1){
-		const rate = Data.canvas.height / img_size.h * 0.6
-		return {
-			w : img_size.w * rate,
-			h : Data.canvas.height * size,
-		}
+	height_rate(height_size){
+		return Data.canvas.height / height_size
 	}
 
-	calc_scroll_offset(scroll_px, width){
+	check_offset_x(pos_x , size_w){
 		switch(Data.setting.bg.direction){
-			
 			// 左スクロール
 			case -1:
-				if(scroll_px <= -width){
-					scroll_px = ~~((scroll_px - width) % width)
-				}
-			break
-
+				return pos_x < -size_w ? 0 : pos_x
 			// 右スクロール
 			case 1:
-
-			break
+				return pos_x > size_w ? 0 : pos_x
 		}
-		return scroll_px
 	}
 
 	calc_count(width, offset){
 		return Math.ceil((Data.canvas.width + (offset * Data.setting.bg.direction)) / width)
 	}
 
-	animation(){
-		this.offset_px += Data.setting.bg.speed
-		this.view()
-
-		window.requestAnimationFrame(this.animation.bind(this))
-	}
 }

@@ -4,47 +4,35 @@ export class Canvas{
 	constructor(){
 		this.init()
 		Canvas.clear()
+		this.set_event()
 	}
 
 	init(){
 		Data.canvas.width  = Data.canvas.offsetWidth
 		Data.canvas.height = Data.canvas.offsetHeight
-		// Data.canvas.width  = window.innerWidth
-		// Data.canvas.height = window.innerHeight
-		
 	}
 
 	static clear(){
 		Data.ctx.beginPath()
-		Data.ctx.fillStyle = 'rgb(0, 0, 0)'
-		Data.ctx.fillRect(0, 0, Data.canvas.width, Data.canvas.height)
+		if(!Data.setting.bg.color){
+			Data.ctx.fillStyle = `rgb(0, 0, 0)`
+			Data.ctx.fillRect(0, 0, Data.canvas.width, Data.canvas.height)
+		}
+		else if(!Data.setting.bg.color.length){
+			Data.ctx.fillStyle = Data.setting.bg.color
+			Data.ctx.fillRect(0, 0, Data.canvas.width, Data.canvas.height)
+		}
+		else{
+			const gradient = Data.ctx.createLinearGradient(0, 0, 0, Data.canvas.height)
+			gradient.addColorStop(0, Data.setting.bg.color[0])
+			gradient.addColorStop(1, Data.setting.bg.color[1])
+			Data.ctx.fillStyle = gradient;
+			Data.ctx.fillRect(0, 0, Data.canvas.width, Data.canvas.height)
+		}
 	}
 
-	// view(){
-	// 	this.clear()
-	// 	// this.bg()
-	// }
-
-	// // BG
-	// bg_pos = 0
-
-	// bg(){
-	// 	if(!Data.bg){return}
-		
-	// 	const size = {
-	// 		w : Data.bg.w,
-	// 		h : Data.bg.h,
-	// 	}
-  //   Data.ctx.drawImage(Data.bg.data, Data.setting.bg.pos.x, Data.setting.bg.pos.y, size.w, size.h)
-
-	// 	this.bg_scroll()
-	// }
-
-	// bg_scroll(){
-	// 	Data.setting.bg.pos.x += Data.setting.bg.speed
-	// 	if(Data.setting.bg.pos.x > window.innerWidth - 100){return}
-
-	// 	window.requestAnimationFrame(this.view.bind(this))
-	// }
+	set_event(){
+		window.addEventListener("resize", this.init.bind(this))
+	}
 
 }

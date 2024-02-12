@@ -1,8 +1,7 @@
 import { Init }      from "./init.js"
 import { Load }      from "./load.js"
 import { Canvas }    from "./canvas.js"
-import { Bg }        from "./bg.js"
-import { Build }     from "./build.js"
+import { Animation } from "./animation.js"
 
 class Main{
 	constructor(){
@@ -12,8 +11,7 @@ class Main{
 
 	loaded(){
 		new Canvas()
-		new Bg()
-		new Build()
+		new Animation()
 	}
 }
 

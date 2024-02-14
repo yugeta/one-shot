@@ -29,11 +29,12 @@
 	},
 
 	"speed" : 0.5,
+	"wait"  : 0,
 	
 	"bg":{
 		"direction" : -1,
 		"color" : ["#061146","#1c3be1"],
-		"leyers" : [
+		"layers" : [
 			{
 				"key": "bg_1",
 				"height_rate" : 0.70,
@@ -80,6 +81,50 @@
 			},
 			{
 				"key": "build_3"
+			}
+		]
+	},
+
+	"chara":{
+		"speed" : 7,
+		"run":[
+			{
+				"key" : "run_1"
+			},
+			{
+				"key" : "run_2"
+			},
+			{
+				"key" : "run_3"
+			},
+			{
+				"key" : "run_4"
+			},
+			{
+				"key" : "run_5"
+			},
+			{
+				"key" : "run_6"
+			}
+		],
+		"shot":[
+			{
+				"key" : "shot_1"
+			},
+			{
+				"key" : "shot_2"
+			},
+			{
+				"key" : "shot_3"
+			},
+			{
+				"key" : "shot_4"
+			},
+			{
+				"key" : "shot_5"
+			},
+			{
+				"key" : "shot_6"
 			}
 		]
 	}

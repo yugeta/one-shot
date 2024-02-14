@@ -9,13 +9,13 @@ export class Build{
 		this.init()
 		this.create_builds()
 		this.view()
-		console.log(this.builds)
 	}
 
 	init(){
 		for(const item of Data.setting.build.items){
 			const data = Data.images.find(e => e.key === item.key)
 			if(!data){continue}
+			// const rate = this.height_rate(data.h)
 			const rate = this.height_rate(data.h)
 			item.data  = data.data
 			item.w     = data.w * rate
@@ -23,9 +23,9 @@ export class Build{
 		}
 	}
 
-	height_rate(img_size_h){
-		return Data.canvas.height / img_size_h * 0.8
-	}
+	// height_rate(img_size_h){
+	// 	return Data.canvas.height / img_size_h * 0.8
+	// }
 
 	create_builds(){
 		if(this.is_enough_end_x() === true){return}
@@ -108,5 +108,9 @@ export class Build{
 		if(flg){
 			this.create_builds()
 		}
+	}
+
+	resize(){
+		
 	}
 }

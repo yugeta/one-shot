@@ -25,10 +25,11 @@ export class Bg{
 
 	// 
 	layers(){
-		for(const layer of Data.setting.bg.leyers){
+		for(const layer of Data.setting.bg.layers){
 			const img = Data.images.find(e => e.key === layer.key)
 			if(!img){continue}
-			const height_rate = this.height_rate(img.h)
+			// const height_rate = this.height_rate(img.h)
+			const height_rate = Data.rate
 			const size = {
 				w : img.w * height_rate * (layer.height_rate || 1),
 				h : img.h * height_rate * (layer.height_rate || 1),
@@ -50,7 +51,6 @@ export class Bg{
 
 	bg_layer(img, size , pos){
 		const count = this.calc_count(size.w, pos.x)
-
 		for(let i=0; i<count; i++){
 			pos = {
 				x : i * size.w + pos.x,

@@ -10,6 +10,7 @@ export class Canvas{
 	init(){
 		Data.canvas.width  = Data.canvas.offsetWidth
 		Data.canvas.height = Data.canvas.offsetHeight
+		this.rate()
 	}
 
 	static clear(){
@@ -33,6 +34,19 @@ export class Canvas{
 
 	set_event(){
 		window.addEventListener("resize", this.init.bind(this))
+	}
+
+	// bgの最初の画像の画面表示割合を基本rateとする
+	rate(){
+		const key  = Data.setting.bg.layers[0].key
+		const rate = Data.setting.bg.layers[0].height_rate
+		const data = Data.images.find(e => e.key === key)
+		if(data){
+			Data.rate = Data.canvas.height / data.h * rate
+		}
+		else{
+			Data.rate = 1
+		}
 	}
 
 }

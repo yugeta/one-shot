@@ -3,7 +3,7 @@ import { Load }      from "./load.js"
 import { Canvas }    from "./canvas.js"
 import { Animation } from "./animation.js"
 import { Event }     from "./event.js"
-import { Chara }     from "./chara.js"
+// import { Chara }     from "./chara.js"
 
 class Main{
 	constructor(){
@@ -15,7 +15,7 @@ class Main{
 		new Canvas()
 		// new Init()
 		new Animation()
-		new Chara()
+		// new Chara()
 	}
 }
 

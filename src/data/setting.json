@@ -37,7 +37,7 @@
 		"layers" : [
 			{
 				"key": "bg_1",
-				"height_rate" : 0.70,
+				"height_rate" : 0.7,
 				"speed"   : 1,
 				"pos" : {
 					"x" : 0,
@@ -46,7 +46,7 @@
 			},
 			{
 				"key": "bg_2",
-				"height_rate" : 0.65,
+				"height_rate" : 0.7,
 				"speed"   : 2,
 				"pos" : {
 					"x" : 0,
@@ -55,7 +55,7 @@
 			},
 			{
 				"key": "bg_3",
-				"height_rate" : 0.60,
+				"height_rate" : 0.7,
 				"speed"   : 3,
 				"pos" : {
 					"x" : 0,
@@ -67,7 +67,7 @@
 
 	"build":{
 		"speed" : 4,
-		"start":[
+		"start1":[
 			{
 				"key": "build_1"
 			}

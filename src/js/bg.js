@@ -12,16 +12,16 @@ export class Bg{
 		this.layers()
 	}
 
-	// 固定背景
-	static(){
-		const img = Data.images.find(e => e.key === "bg_0")
-		if(!img){return}
-		const size = {
-			w : Data.canvas.width,
-			h : Data.canvas.height,
-		}
-    Data.ctx.drawImage(img.data, 0, 0, size.w, size.h)
-	}
+	// // 固定背景
+	// static(){
+	// 	const img = Data.images.find(e => e.key === "bg_0")
+	// 	if(!img){return}
+	// 	const size = {
+	// 		w : Data.canvas.width,
+	// 		h : Data.canvas.height,
+	// 	}
+  //   Data.ctx.drawImage(img.data, 0, 0, size.w, size.h)
+	// }
 
 	// 
 	layers(){
@@ -43,6 +43,12 @@ export class Bg{
 				const x = i * size.w + pos.x
 				const y = Data.canvas.height - size.h + pos.y
 				Data.ctx.drawImage(img.data, x, y, size.w, size.h)
+
+				Data.ctx.lineWidth = 1;
+				Data.ctx.strokeStyle = "white";
+				Data.ctx.beginPath();
+				Data.ctx.rect(x,y,size.w,size.h);
+				Data.ctx.stroke();
 			}
 
 			layer.pos.x = pos.x

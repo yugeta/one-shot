@@ -38,15 +38,27 @@ export class Canvas{
 
 	// bgの最初の画像の画面表示割合を基本rateとする
 	rate(){
+		// Data.rate = 2.0
+		// return
 		const key  = Data.setting.bg.layers[0].key
 		const rate = Data.setting.bg.layers[0].height_rate
 		const data = Data.images.find(e => e.key === key)
 		if(data){
-			Data.rate = Data.canvas.height / data.h * rate
+			Data.rate = Data.canvas.height / data.h
+			// Data.rate = Data.canvas.height / data.h * rate
 		}
 		else{
 			Data.rate = 1
 		}
+		// console.log("rate:",Data.rate)
+	}
+
+	static frame(){
+		Data.ctx.lineWidth = "4";
+		Data.ctx.strokeStyle = "white";
+		Data.ctx.beginPath();
+    Data.ctx.rect(20,20,50,50);
+    Data.ctx.stroke();
 	}
 
 }

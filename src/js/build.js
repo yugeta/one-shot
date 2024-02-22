@@ -23,9 +23,9 @@ export class Build{
 		}
 	}
 
-	// height_rate(img_size_h){
-	// 	return Data.canvas.height / img_size_h * 0.8
-	// }
+	height_rate(img_size_h){
+		return Data.canvas.height / img_size_h * 0.5
+	}
 
 	create_builds(){
 		if(this.is_enough_end_x() === true){return}
@@ -96,7 +96,6 @@ export class Build{
 		for(let i=0; i<this.builds.length; i++){
 			const build = this.builds[i]
 			if(this.offset_px >= build.w + build.gap){
-// console.log(this.offset_px,build.w , build.gap)
 				this.offset_px -= build.w + build.gap
 				this.builds.shift()
 				flg++

@@ -37,7 +37,7 @@ export class Animation{
 	view(){
 		Canvas.clear()
 		this.bg.view()
-		this.build.view()
+		// this.build.view()
 		// this.chara.view()
 		Canvas.frame()
 	}

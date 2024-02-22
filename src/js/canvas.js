@@ -10,6 +10,9 @@ export class Canvas{
 	init(){
 		Data.canvas.width  = Data.canvas.offsetWidth
 		Data.canvas.height = Data.canvas.offsetHeight
+		Data.bg.width      = Data.canvas.offsetWidth
+		Data.bg.height     = Data.canvas.offsetHeight
+
 		this.rate()
 	}
 

@@ -5,6 +5,10 @@ export class Data{
 
 	static setting = {}
 	static images  = []
+	static bg = {
+		width  : null,
+		height : null,
+	}
 
 	static status  = "play"
 

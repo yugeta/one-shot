@@ -1,9 +1,9 @@
 {
 	"images":{
 		"bg_0"    : "img/bg_0.png",
-		"bg_1"    : "img/bg_1.png",
-		"bg_2"    : "img/bg_2.png",
-		"bg_3"    : "img/bg_3.png",
+		"bg_1"    : "img/bg_1.svg",
+		"bg_2"    : "img/bg_2.svg",
+		"bg_3"    : "img/bg_3.svg",
 		"build_1" : "img/build_1.png",
 		"build_2" : "img/build_2.png",
 		"build_3" : "img/build_3.png",
@@ -55,7 +55,7 @@
 			},
 			{
 				"key": "bg_3",
-				"height_rate" : 0.7,
+				"height_rate" : 0.6,
 				"speed"   : 3,
 				"pos" : {
 					"x" : 0,

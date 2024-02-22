@@ -4,6 +4,7 @@ import { Canvas }    from "./canvas.js"
 import { Animation } from "./animation.js"
 import { Event }     from "./event.js"
 // import { Chara }     from "./chara.js"
+import { Data }     from "./data.js"
 
 class Main{
 	constructor(){
@@ -16,6 +17,8 @@ class Main{
 		// new Init()
 		new Animation()
 		// new Chara()
+
+		// console.log(Data.images)
 	}
 }
 

@@ -29,7 +29,12 @@ export class Bg{
 			const img = Data.images.find(e => e.key === layer.key)
 			if(!img){continue}
 			// const height_rate = this.height_rate(img.h)
-			const height_rate = Data.rate
+			// const height_rate = Data.rate
+			// const size = {
+			// 	w : img.w * height_rate * (layer.height_rate || 1),
+			// 	h : img.h * height_rate * (layer.height_rate || 1),
+			// }
+			const height_rate = Data.bg.height / img.h
 			const size = {
 				w : img.w * height_rate * (layer.height_rate || 1),
 				h : img.h * height_rate * (layer.height_rate || 1),
@@ -41,7 +46,7 @@ export class Bg{
 			const count = this.calc_count(size.w, pos.x)
 			for(let i=0; i<count; i++){
 				const x = i * size.w + pos.x
-				const y = Data.canvas.height - size.h + pos.y
+				const y = Data.bg.height - size.h + pos.y
 				Data.ctx.drawImage(img.data, x, y, size.w, size.h)
 
 				Data.ctx.lineWidth = 1;
@@ -60,14 +65,14 @@ export class Bg{
 		for(let i=0; i<count; i++){
 			pos = {
 				x : i * size.w + pos.x,
-				y : Data.canvas.height - size.h + pos.y,
+				y : Data.bg.height - size.h + pos.y,
 			}
 			Data.ctx.drawImage(img.data, pos.x, pos.y, size.w, size.h)
 		}
 	}
 
 	height_rate(height_size){
-		return Data.canvas.height / height_size
+		return Data.bg.height / height_size
 	}
 
 	check_offset_x(pos_x , size_w){

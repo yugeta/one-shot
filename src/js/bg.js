@@ -43,17 +43,24 @@ export class Bg{
 				x : this.check_offset_x(layer.pos.x + Data.speed(layer.speed) * Data.setting.bg.direction , size.w),
 				y : layer.pos.y,
 			}
+			const diff = {
+				x : Data.canvas.width  - Data.bg.width,
+				y : Data.canvas.height - Data.bg.height,
+			}
 			const count = this.calc_count(size.w, pos.x)
 			for(let i=0; i<count; i++){
-				const x = i * size.w + pos.x
-				const y = Data.bg.height - size.h + pos.y
+				const x = i * size.w + pos.x + diff.x
+				const y = Data.bg.height - size.h + pos.y + diff.y
 				Data.ctx.drawImage(img.data, x, y, size.w, size.h)
 
-				Data.ctx.lineWidth = 1;
-				Data.ctx.strokeStyle = "white";
-				Data.ctx.beginPath();
-				Data.ctx.rect(x,y,size.w,size.h);
-				Data.ctx.stroke();
+				if(layer.line_width){
+					Data.ctx.lineWidth = layer.line_width
+					Data.ctx.strokeStyle = layer.stroke_style || "transparent"
+					Data.ctx.beginPath()
+					Data.ctx.rect(x,y,size.w,size.h)
+					Data.ctx.stroke()
+				}
+				// Data.ctx.closePath();
 			}
 
 			layer.pos.x = pos.x

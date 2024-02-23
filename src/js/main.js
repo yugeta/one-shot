@@ -1,4 +1,3 @@
-// import { Init }      from "./init.js"
 import { Load }      from "./load.js"
 import { Canvas }    from "./canvas.js"
 import { Animation } from "./animation.js"
@@ -14,7 +13,6 @@ class Main{
 
 	loaded(){
 		new Canvas()
-		// new Init()
 		new Animation()
 		// new Chara()
 

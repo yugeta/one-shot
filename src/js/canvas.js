@@ -8,12 +8,34 @@ export class Canvas{
 	}
 
 	init(){
+		this.canvas_size()
+		this.frame()
+		this.rate()
+	}
+
+	canvas_size(){
 		Data.canvas.width  = Data.canvas.offsetWidth
 		Data.canvas.height = Data.canvas.offsetHeight
-		Data.bg.width      = Data.canvas.offsetWidth
-		Data.bg.height     = Data.canvas.offsetHeight
+	}
 
-		this.rate()
+	frame(){
+		const base_rate = 0.5
+		Data.bg = {
+			width  : Data.canvas.offsetWidth,
+			height : Data.canvas.offsetHeight * base_rate,
+		}
+		Data.diff = {
+			width  : Data.canvas.width  - Data.bg.width,
+			height : Data.canvas.height - Data.bg.height,
+		}
+		// if(Data.canvas.width / 2 < Data.canvas.height){
+		// 	Data.bg.width      = Data.canvas.offsetWidth
+		// 	Data.bg.height     = Data.canvas.offsetHeight * base_rate
+		// }
+		// else{
+		// 	Data.bg.width      = Data.canvas.offsetWidth
+		// 	Data.bg.height     = Data.canvas.offsetHeight * 0.8
+		// }
 	}
 
 	static clear(){
@@ -56,12 +78,22 @@ export class Canvas{
 		// console.log("rate:",Data.rate)
 	}
 
-	static frame(){
-		Data.ctx.lineWidth = "4";
-		Data.ctx.strokeStyle = "white";
-		Data.ctx.beginPath();
-    Data.ctx.rect(20,20,50,50);
-    Data.ctx.stroke();
+	static frame_view(){
+		if(!Data.setting.frame.line_width){return}
+		const pos = {
+			x : Data.canvas.width  - Data.bg.width  + Data.setting.frame.line_width / 2,
+			y : Data.canvas.height - Data.bg.height + Data.setting.frame.line_width / 2,
+		}
+		const size = {
+			w : Data.bg.width  - Data.setting.frame.line_width,
+			h : Data.bg.height - Data.setting.frame.line_width,
+		}
+		
+		Data.ctx.lineWidth = Data.setting.frame.line_width
+		Data.ctx.strokeStyle = Data.setting.frame.stroke_style
+		Data.ctx.beginPath()
+    Data.ctx.rect(pos.x, pos.y, size.w, size.h)
+    Data.ctx.stroke()
 	}
 
 }

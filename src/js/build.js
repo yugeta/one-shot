@@ -3,7 +3,6 @@ import { Data }   from "./data.js"
 export class Build{
 	offset_px = 0
 	builds    = []
-	gap       = 50
 
 	constructor(){
 		this.init()
@@ -17,6 +16,7 @@ export class Build{
 			if(!data){continue}
 			// const rate = this.height_rate(data.h)
 			const rate = this.height_rate(data.h)
+	// console.log(rate)
 			item.data  = data.data
 			item.w     = data.w * rate
 			item.h     = data.h * rate
@@ -24,7 +24,7 @@ export class Build{
 	}
 
 	height_rate(img_size_h){
-		return Data.canvas.height / img_size_h * 0.5
+		return Data.bg.height / img_size_h * Data.setting.build.size_rate
 	}
 
 	create_builds(){
@@ -60,7 +60,7 @@ export class Build{
 	// ビルの右端座標が、表示画面の２倍よりも大きい場合は処理をしない
 	is_enough_end_x(){
 		const end_x = this.get_map_end_x()
-		return Data.canvas.width * 2 + this.offset_px < end_x ? true : false
+		return Data.bg.width * 2 + this.offset_px < end_x ? true : false
 	}
 
 	// 複数のビルの種類から１つをランダムで取得
@@ -75,11 +75,16 @@ export class Build{
 		let offset = 0
 		this.rebuild_builds()
 		for(const build of this.builds){
+			const pos = {
+				x : this.offset_px * Data.setting.bg.direction + offset + build.gap,
+				// y : Data.diff.height + Data.bg.height - (Data.bg.height * ((100 - build.size) / 100)),
+				y : Data.diff.height + build.size,
+				// y : Data.canvas.height /2, 
+			}
 			Data.ctx.drawImage(
 				build.data, 
-				this.offset_px * Data.setting.bg.direction + offset + build.gap, 
-				// Data.canvas.height /2, 
-				Data.canvas.height * ((100 - build.size) / 100),
+				pos.x, 
+				pos.y,
 				build.w, 
 				build.h
 			)

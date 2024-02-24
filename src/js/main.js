@@ -2,11 +2,10 @@ import { Load }      from "./load.js"
 import { Canvas }    from "./canvas.js"
 import { Animation } from "./animation.js"
 import { Event }     from "./event.js"
-// import { Chara }     from "./chara.js"
-import { Data }     from "./data.js"
-import { Bg }     from "./bg.js"
-import { Build }  from "./build.js"
-import { Chara }  from "./chara.js"
+import { Data }      from "./data.js"
+import { Bg }        from "./bg.js"
+import { Build }     from "./build.js"
+import { Chara }     from "./chara.js"
 
 class Main{
 	constructor(){
@@ -16,12 +15,10 @@ class Main{
 
 	loaded(){
 		new Canvas()
-
 		Data.bg    = new Bg()
 		Data.build = new Build()
 		Data.chara = new Chara()
 		new Animation()
-		// new Chara()
 
 		// setTimeout((()=>{Data.status = "pause"}) , 1000)
 	}

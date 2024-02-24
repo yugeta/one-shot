@@ -1,7 +1,7 @@
 import { Data }   from "./data.js"
 
 export class Bg{
-	offset_px = 0
+	// offset_px = 0
 
 	constructor(){
 		this.view()
@@ -40,7 +40,7 @@ export class Bg{
 				h : img.h * height_rate * (layer.height_rate || 1),
 			}
 			const pos = {
-				x : this.check_offset_x(layer.pos.x + Data.speed(layer.speed) * Data.setting.bg.direction , size.w),
+				x : this.check_offset_x(layer.pos.x + Data.speed(layer.speed) , size.w),
 				y : layer.pos.y,
 			}
 			const diff = {

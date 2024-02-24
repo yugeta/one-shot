@@ -24,6 +24,6 @@ export class Data{
 
 	// calc speed
 	static speed(speed=1){
-		return Data.setting.speed * speed
+		return speed * Data.setting.speed * Data.setting.bg.direction
 	}
 }

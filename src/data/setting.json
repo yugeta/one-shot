@@ -14,25 +14,25 @@
 		"enemy_4" : "img/enemy_4.png",
 		"enemy_5" : "img/enemy_5.png",
 		"enemy_6" : "img/enemy_6.png",
-		"run_1" : "img/run_1.png",
-		"run_2" : "img/run_2.png",
-		"run_3" : "img/run_3.png",
-		"run_4" : "img/run_4.png",
-		"run_5" : "img/run_5.png",
-		"run_6" : "img/run_6.png",
-		"shot_1" : "img/shot_1.png",
-		"shot_2" : "img/shot_2.png",
-		"shot_3" : "img/shot_3.png",
-		"shot_4" : "img/shot_4.png",
-		"shot_5" : "img/shot_5.png",
-		"shot_6" : "img/shot_6.png"
+		"run_1"   : "img/run_1.png",
+		"run_2"   : "img/run_2.png",
+		"run_3"   : "img/run_3.png",
+		"run_4"   : "img/run_4.png",
+		"run_5"   : "img/run_5.png",
+		"run_6"   : "img/run_6.png",
+		"shot_1"  : "img/shot_1.png",
+		"shot_2"  : "img/shot_2.png",
+		"shot_3"  : "img/shot_3.png",
+		"shot_4"  : "img/shot_4.png",
+		"shot_5"  : "img/shot_5.png",
+		"shot_6"  : "img/shot_6.png"
 	},
 
 	"speed" : 0.5,
 	"wait"  : 0,
 
 	"frame" : {
-		"line_width" : 1,
+		"line_width" : 0,
 		"stroke_style": "white",
 		"aspect":2,
 		"aspect-memo":"height÷widthの値"
@@ -80,7 +80,7 @@
 
 	"build":{
 		"speed" : 4,
-		"size_rate" : 1.0,
+		"size_rate" : 1.5,
 		"items":[
 			{
 				"key": "build_1"

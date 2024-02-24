@@ -12,7 +12,7 @@ export class Chara{
 	}
 
 	set_rate(){
-		this.rate = (Data.bg.height / 2.5) / this.run[0].h
+		this.rate = (Data.back.height / 2.5) / this.run[0].h
 	}
 
 	// 走りモーション

@@ -20,22 +20,14 @@ export class Canvas{
 
 	frame(){
 		const base_rate = 0.5
-		Data.bg = {
+		Data.back = {
 			width  : Data.canvas.offsetWidth,
 			height : Data.canvas.offsetHeight * base_rate,
 		}
 		Data.diff = {
-			width  : Data.canvas.width  - Data.bg.width,
-			height : Data.canvas.height - Data.bg.height,
+			width  : Data.canvas.width  - Data.back.width,
+			height : Data.canvas.height - Data.back.height,
 		}
-		// if(Data.canvas.width / 2 < Data.canvas.height){
-		// 	Data.bg.width      = Data.canvas.offsetWidth
-		// 	Data.bg.height     = Data.canvas.offsetHeight * base_rate
-		// }
-		// else{
-		// 	Data.bg.width      = Data.canvas.offsetWidth
-		// 	Data.bg.height     = Data.canvas.offsetHeight * 0.8
-		// }
 	}
 
 	static clear(){
@@ -81,12 +73,12 @@ export class Canvas{
 	static frame_view(){
 		if(!Data.setting.frame.line_width){return}
 		const pos = {
-			x : Data.canvas.width  - Data.bg.width  + Data.setting.frame.line_width / 2,
-			y : Data.canvas.height - Data.bg.height + Data.setting.frame.line_width / 2,
+			x : Data.canvas.width  - Data.back.width  + Data.setting.frame.line_width / 2,
+			y : Data.canvas.height - Data.back.height + Data.setting.frame.line_width / 2,
 		}
 		const size = {
-			w : Data.bg.width  - Data.setting.frame.line_width,
-			h : Data.bg.height - Data.setting.frame.line_width,
+			w : Data.back.width  - Data.setting.frame.line_width,
+			h : Data.back.height - Data.setting.frame.line_width,
 		}
 		
 		Data.ctx.lineWidth = Data.setting.frame.line_width

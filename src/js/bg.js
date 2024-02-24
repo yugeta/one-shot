@@ -1,40 +1,21 @@
 import { Data }   from "./data.js"
 
 export class Bg{
-	// offset_px = 0
 
 	constructor(){
 		this.view()
 	}
 
 	view(){
-		// this.static()
 		this.layers()
 	}
-
-	// // 固定背景
-	// static(){
-	// 	const img = Data.images.find(e => e.key === "bg_0")
-	// 	if(!img){return}
-	// 	const size = {
-	// 		w : Data.canvas.width,
-	// 		h : Data.canvas.height,
-	// 	}
-  //   Data.ctx.drawImage(img.data, 0, 0, size.w, size.h)
-	// }
 
 	// 
 	layers(){
 		for(const layer of Data.setting.bg.layers){
 			const img = Data.images.find(e => e.key === layer.key)
 			if(!img){continue}
-			// const height_rate = this.height_rate(img.h)
-			// const height_rate = Data.rate
-			// const size = {
-			// 	w : img.w * height_rate * (layer.height_rate || 1),
-			// 	h : img.h * height_rate * (layer.height_rate || 1),
-			// }
-			const height_rate = Data.bg.height / img.h
+			const height_rate = Data.back.height / img.h
 			const size = {
 				w : img.w * height_rate * (layer.height_rate || 1),
 				h : img.h * height_rate * (layer.height_rate || 1),
@@ -44,13 +25,13 @@ export class Bg{
 				y : layer.pos.y,
 			}
 			const diff = {
-				x : Data.canvas.width  - Data.bg.width,
-				y : Data.canvas.height - Data.bg.height,
+				x : Data.canvas.width  - Data.back.width,
+				y : Data.canvas.height - Data.back.height,
 			}
 			const count = this.calc_count(size.w, pos.x)
 			for(let i=0; i<count; i++){
 				const x = i * size.w + pos.x + diff.x
-				const y = Data.bg.height - size.h + pos.y + diff.y
+				const y = Data.back.height - size.h + pos.y + diff.y
 				Data.ctx.drawImage(img.data, x, y, size.w, size.h)
 
 				if(layer.line_width){
@@ -60,7 +41,6 @@ export class Bg{
 					Data.ctx.rect(x,y,size.w,size.h)
 					Data.ctx.stroke()
 				}
-				// Data.ctx.closePath();
 			}
 
 			layer.pos.x = pos.x
@@ -72,14 +52,14 @@ export class Bg{
 		for(let i=0; i<count; i++){
 			pos = {
 				x : i * size.w + pos.x,
-				y : Data.bg.height - size.h + pos.y,
+				y : Data.back.height - size.h + pos.y,
 			}
 			Data.ctx.drawImage(img.data, pos.x, pos.y, size.w, size.h)
 		}
 	}
 
 	height_rate(height_size){
-		return Data.bg.height / height_size
+		return Data.back.height / height_size
 	}
 
 	check_offset_x(pos_x , size_w){

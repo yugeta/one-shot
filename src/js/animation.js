@@ -1,14 +1,14 @@
 import { Canvas } from "./canvas.js"
-import { Bg }     from "./bg.js"
-import { Build }  from "./build.js"
-import { Chara }  from "./chara.js"
+// import { Bg }     from "./bg.js"
+// import { Build }  from "./build.js"
+// import { Chara }  from "./chara.js"
 import { Data }   from "./data.js"
 
 export class Animation{
 	constructor(){
-		this.bg    = new Bg()
-		this.build = new Build()
-		this.chara = new Chara()
+		// this.bg    = new Bg()
+		// this.build = new Build()
+		// this.chara = new Chara()
 		this.run()
 	}
 
@@ -36,9 +36,9 @@ export class Animation{
 
 	view(){
 		Canvas.clear()
-		this.bg.view()
-		this.build.view()
-		this.chara.view()
+		Data.bg.view()
+		Data.build.view()
+		Data.chara.view()
 		Canvas.frame_view()
 	}
 }

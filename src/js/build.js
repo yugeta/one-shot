@@ -50,7 +50,7 @@ export class Build{
 	set_rate(){
 		const first_build = this.first_build
 		if(!first_build){return}
-		this.rate = Data.bg.height / first_build.h * this.main_rate
+		this.rate = Data.back.height / first_build.h * this.main_rate
 	}
 
 	// 任意の値間でのランダム値を返す
@@ -87,7 +87,7 @@ export class Build{
 			this.build_view(build)
 		}
 		// ２画面分のビルを作成
-		if(this.offset_x < Data.bg.width * 2){
+		if(this.offset_x < Data.back.width * 2){
 			this.build_create()
 		}
 	}

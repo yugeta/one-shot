@@ -17,6 +17,7 @@ class Main{
 		// new Chara()
 
 		// console.log(Data.images)
+		// setTimeout((()=>{Data.status = "pause"}) , 1000)
 	}
 }
 

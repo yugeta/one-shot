@@ -1,9 +1,10 @@
-import { Data } from "./data.js"
+import { Data }  from "./data.js"
 
 export class Chara{
 	chara_num = 0
 	speed     = 0
 	rate      = 1.0
+	pos       = {x:null,y:null}
 
 	constructor(){
 		this.run = this.data_run()
@@ -45,19 +46,32 @@ export class Chara{
 	}
 
 	view(){
-		const d = this.chara_data(this.chara_num)
-		Data.ctx.drawImage(
-			d.img, 
-			100, 
-			100,
-			d.w * this.rate, 
-			d.h * this.rate
-		)
+		const d   = this.chara_data(this.chara_num)
+		const img = d.img
+		const x   = Data.setting.chara.pos_x
+		const y   = this.pos_y()
+		const w   = d.w * this.rate
+		const h   = d.h * this.rate
+		Data.ctx.drawImage(img, x, y, w, h)
 		if(this.speed % Data.setting.chara.speed === 0){
 			this.chara_num++
 			this.chara_num = this.chara_num < this.run.length ? this.chara_num : 0
 		}
 		this.speed++
+
+		if(Data.setting.chara.line_width){
+			// frame
+			Data.ctx.lineWidth = Data.setting.chara.line_width
+			Data.ctx.strokeStyle = Data.setting.chara.stroke_style || "transparent"
+			Data.ctx.beginPath()
+			Data.ctx.rect(x,y,w,h)
+			Data.ctx.stroke()
+			// middle-line
+			Data.ctx.beginPath()
+			Data.ctx.moveTo(x+w/2, 0)
+			Data.ctx.lineTo(x+w/2, Data.canvas.height)
+			Data.ctx.stroke()
+		}
 	}
 
 	chara_data(num){
@@ -66,6 +80,20 @@ export class Chara{
 
 	animation(){
 
+	}
+
+	current_pos(){
+		return Data.setting.chara.pos_x + this.run[0].w / 2
+	}
+
+	pos_y(){
+		const current_build = Data.build.get_current_build(this.current_pos())
+		if(!current_build){
+			return Data.canvas.height - (this.run[0].h * this.rate)
+		}
+		// console.log(current_build.key)
+		const build_y = Data.diff.height + current_build.rand - (this.run[0].h * this.rate)
+		return build_y
 	}
 
 	collision(){

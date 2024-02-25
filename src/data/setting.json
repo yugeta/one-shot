@@ -101,6 +101,9 @@
 	},
 
 	"chara":{
+		"line_width" : 0,
+		"stroke_style": "white",
+		"pos_x" : 100,
 		"speed" : 7,
 		"run":[
 			{

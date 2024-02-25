@@ -124,4 +124,20 @@ export class Build{
 		}
 	}
 
+	get_current_build(chara_pos_x){
+		let offset = this.scroll_x
+		for(const build of this.builds){
+			// build
+			offset += build.w * this.rate
+			if(offset > chara_pos_x){
+				return build
+			}
+			// gap
+			offset += build.gap * this.rate
+			if(offset > chara_pos_x){
+				return null
+			}
+		}
+	}
+
 }

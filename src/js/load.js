@@ -123,6 +123,24 @@ export class Load{
 			d.w   = data.w
 			d.h   = data.h
 		}
+		// jump_run
+		for(const d of Data.setting.chara.jump_run){
+			const key = d.key
+			const data = Data.images.find(e => e.key === key)
+			if(!data){continue}
+			d.img = data.data
+			d.w   = data.w
+			d.h   = data.h
+		}
+		// jump_shot
+		for(const d of Data.setting.chara.jump_shot){
+			const key = d.key
+			const data = Data.images.find(e => e.key === key)
+			if(!data){continue}
+			d.img = data.data
+			d.w   = data.w
+			d.h   = data.h
+		}
 	}
 
 	finish(){

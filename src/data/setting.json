@@ -196,6 +196,7 @@
 		"items" : {
 			"bullet_1":{},
 			"bullet_2":{}
-		}
+		},
+		"limit_count" : 3
 	}
 }

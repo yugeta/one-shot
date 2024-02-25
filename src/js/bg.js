@@ -10,7 +10,6 @@ export class Bg{
 		this.layers()
 	}
 
-
 	layers(){
 		for(const layer of Data.setting.bg.layers){
 			const height_rate = Data.back.height / layer.h

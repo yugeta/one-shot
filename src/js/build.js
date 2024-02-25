@@ -9,46 +9,6 @@ export class Build{
 	speed     = 1
 
 	constructor(){
-<<<<<<< HEAD
-		this.set_item_datas()
-		this.set_speed()
-		this.init()
-		this.set_event()
-	}
-
-	get first_build(){
-		const data = Data.images.find(e => e.key === Data.setting.build.items[0].key)
-		return data || null
-	}
-
-	get main_rate(){
-		return Data.setting.build.size_rate
-	}
-
-	set_item_datas(){
-		for(const item of Data.setting.build.items){
-			const data = Data.images.find(e => e.key === item.key)
-			if(!data){continue}
-			item.data  = data.data
-			item.w     = data.w
-			item.h     = data.h
-		}
-	}
-
-	set_speed(){
-		this.speed = Data.speed(Data.setting.build.speed)
-	}
-
-	init(){
-		this.set_rate()
-		this.items = Data.setting.build.items
-	}
-
-	set_event(){
-		window.addEventListener("resize", this.init.bind(this))
-	}
-
-=======
 		this.set_speed()
 		this.init()
 		this.set_event()
@@ -76,7 +36,6 @@ export class Build{
 		window.addEventListener("resize", this.init.bind(this))
 	}
 
->>>>>>> develop
 	set_rate(){
 		const first_build = this.first_build
 		if(!first_build){return}
@@ -94,11 +53,7 @@ export class Build{
 		const d = Data.setting.build.items[build_num]
 		return {
 			key  : d.key,
-<<<<<<< HEAD
-			data : d.data,
-=======
 			img  : d.img,
->>>>>>> develop
 			w    : d.w,
 			h    : d.h,
 		}
@@ -131,11 +86,7 @@ export class Build{
 			y : Data.diff.height + build.rand,
 		}
 		Data.ctx.drawImage(
-<<<<<<< HEAD
-			build.data, 
-=======
 			build.img, 
->>>>>>> develop
 			pos.x, 
 			pos.y,
 			build.w * this.rate, 
@@ -146,13 +97,8 @@ export class Build{
 
 	build_create(){
 		const rand_build = this.get_random_pick_build()
-<<<<<<< HEAD
-		rand_build.rand = this.get_random_range(10 , 70)
-		rand_build.gap  = this.get_random_range(10 , 80)
-=======
 		rand_build.rand = this.get_random_range(Data.setting.build.height_random.min , Data.setting.build.height_random.max)
 		rand_build.gap  = this.get_random_range(Data.setting.build.between_gap_random.min , Data.setting.build.between_gap_random.max)
->>>>>>> develop
 		this.builds.push(rand_build)
 		this.build_view(rand_build)
 	}
@@ -183,8 +129,6 @@ export class Build{
 		}
 	}
 
-<<<<<<< HEAD
-=======
 	get_current_build_top(chara_pos_x){
 		// const pos_x_1 = chara_pos_x + 20
 		const pos_x_1 = chara_pos_x + Data.setting.chara.collision_offset_w.min * Data.setting.chara.rate
@@ -215,6 +159,4 @@ export class Build{
 			return Data.diff.height + target_build_1.rand - height
 		}
 	}
-
->>>>>>> develop
 }

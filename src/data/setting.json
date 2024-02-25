@@ -7,12 +7,8 @@
 		"build_1"     : "img/build_1.png",
 		"build_2"     : "img/build_2.png",
 		"build_3"     : "img/build_3.png",
-<<<<<<< HEAD
-		"bullet"      : "img/bullet.png",
-=======
 		"bullet_1"    : "img/bullet_1.png",
 		"bullet_2"    : "img/bullet_2.png",
->>>>>>> develop
 		"enemy_1"     : "img/enemy_1.png",
 		"enemy_2"     : "img/enemy_2.png",
 		"enemy_3"     : "img/enemy_3.png",
@@ -36,14 +32,10 @@
 		"jump_run_3"  : "img/jump_run_3.png",
 		"jump_shot_1" : "img/jump_shot_1.png",
 		"jump_shot_2" : "img/jump_shot_2.png",
-<<<<<<< HEAD
-		"jump_shot_3" : "img/jump_shot_3.png"
-=======
 		"jump_shot_3" : "img/jump_shot_3.png",
 		"damage_1"    : "img/damage_1.png",
 		"damage_2"    : "img/damage_2.png",
 		"danage_3"    : "img/damage_3.png"
->>>>>>> develop
 	},
 
 	"speed" : 0.5,
@@ -99,8 +91,6 @@
 	"build":{
 		"speed" : 4,
 		"size_rate" : 1.5,
-<<<<<<< HEAD
-=======
 		"height_random" : {
 			"min" : 10,
 			"max" : 70
@@ -109,7 +99,6 @@
 			"min" : 20,
 			"max" : 40
 		},
->>>>>>> develop
 		"items":[
 			{
 				"key": "build_1"
@@ -128,14 +117,11 @@
 		"stroke_style": "white",
 		"pos_x" : 100,
 		"speed" : 7,
-<<<<<<< HEAD
-=======
 		"rate" : 1.0,
 		"collision_offset_w" : {
 			"min" : 10,
 			"max" : 40
 		},
->>>>>>> develop
 		"run":[
 			{
 				"key" : "run_1"
@@ -198,8 +184,6 @@
 				"key" : "jump_shot_3"
 			}
 		]
-<<<<<<< HEAD
-=======
 	},
 
 	"shot" :{
@@ -213,6 +197,5 @@
 			"bullet_1":{},
 			"bullet_2":{}
 		}
->>>>>>> develop
 	}
 }

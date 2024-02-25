@@ -18,13 +18,10 @@ export class Animation{
 				this.view()
 			break
 
-<<<<<<< HEAD
-			case "pause":
-=======
+
 			case "end":
 			case "pause":
 				// console.log("end")
->>>>>>> develop
 			break
 			
 			case "stop":
@@ -45,10 +42,7 @@ export class Animation{
 		Data.bg.view()
 		Data.build.view()
 		Data.chara.view()
-<<<<<<< HEAD
-=======
 		Data.shot.view()
->>>>>>> develop
 		Canvas.frame_view()
 	}
 }

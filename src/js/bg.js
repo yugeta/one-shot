@@ -10,18 +10,10 @@ export class Bg{
 		this.layers()
 	}
 
-<<<<<<< HEAD
-	// 
-	layers(){
-		for(const layer of Data.setting.bg.layers){
-			const img = Data.images.find(e => e.key === layer.key)
-			if(!img){continue}
-			const height_rate = Data.back.height / img.h
-=======
+
 	layers(){
 		for(const layer of Data.setting.bg.layers){
 			const height_rate = Data.back.height / layer.h
->>>>>>> develop
 			const size = {
 				w : layer.w * height_rate * (layer.height_rate || 1),
 				h : layer.h * height_rate * (layer.height_rate || 1),
@@ -38,11 +30,7 @@ export class Bg{
 			for(let i=0; i<count; i++){
 				const x = i * size.w + pos.x + diff.x
 				const y = Data.back.height - size.h + pos.y + diff.y
-<<<<<<< HEAD
-				Data.ctx.drawImage(img.data, x, y, size.w, size.h)
-=======
 				Data.ctx.drawImage(layer.img, x, y, size.w, size.h)
->>>>>>> develop
 
 				if(layer.line_width){
 					Data.ctx.lineWidth = layer.line_width

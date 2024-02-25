@@ -32,10 +32,6 @@ export class Load{
 
 	load_images(){
 		const image_keys = Object.keys(Data.setting.images)
-<<<<<<< HEAD
-// console.log(image_keys)
-=======
->>>>>>> develop
 		if(!image_keys || !image_keys.length){
 			this.loaded_images()
 			return

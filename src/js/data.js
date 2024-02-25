@@ -1,10 +1,28 @@
-
 export class Data{
-	static canvas = document.getElementById("game")
-	static ctx    = document.getElementById("game").getContext("2d")
+	static canvas  = document.getElementById("game")
+	static ctx     = document.getElementById("game").getContext("2d")
 
+	// data/setting.json
 	static setting = {}
-	static images = []
 
-	
+	// image files
+	static images  = []
+
+	// canvas paramater
+	static bg = {
+		width  : null,
+		height : null,
+	}
+	static diff = {
+		width  : null,
+		height : null,
+	}
+
+	// animation status
+	static status  = "play"
+
+	// calc speed
+	static speed(speed=1){
+		return speed * Data.setting.speed * Data.setting.bg.direction
+	}
 }

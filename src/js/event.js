@@ -1,4 +1,4 @@
-import { Canvas } from "./canvas.js"
+// import { Canvas } from "./canvas.js"
 
 export class Event{
 	constructor(){
@@ -10,6 +10,6 @@ export class Event{
 	}
 
 	resize(){
-		new Canvas()
+		// new Canvas()
 	}
 }

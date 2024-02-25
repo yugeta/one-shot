@@ -1,40 +1,58 @@
 {
 	"images":{
-		"bg_0"    : "img/bg_0.png",
-		"bg_1"    : "img/bg_1.png",
-		"bg_2"    : "img/bg_2.png",
-		"bg_3"    : "img/bg_3.png",
-		"build_1" : "img/build_1.png",
-		"build_2" : "img/build_2.png",
-		"build_3" : "img/build_3.png",
-		"bullet"  : "img/bullet.png",
-		"enemy_1" : "img/enemy_1.png",
-		"enemy_2" : "img/enemy_2.png",
-		"enemy_3" : "img/enemy_3.png",
-		"enemy_4" : "img/enemy_4.png",
-		"enemy_5" : "img/enemy_5.png",
-		"enemy_6" : "img/enemy_6.png",
-		"run_1" : "img/run_1.png",
-		"run_2" : "img/run_2.png",
-		"run_3" : "img/run_3.png",
-		"run_4" : "img/run_4.png",
-		"run_5" : "img/run_5.png",
-		"run_6" : "img/run_6.png",
-		"shot_1" : "img/shot_1.png",
-		"shot_2" : "img/shot_2.png",
-		"shot_3" : "img/shot_3.png",
-		"shot_4" : "img/shot_4.png",
-		"shot_5" : "img/shot_5.png",
-		"shot_6" : "img/shot_6.png"
+		"bg_0"        : "img/bg_0.png",
+		"bg_1"        : "img/bg_1.svg",
+		"bg_2"        : "img/bg_2.svg",
+		"bg_3"        : "img/bg_3.svg",
+		"build_1"     : "img/build_1.png",
+		"build_2"     : "img/build_2.png",
+		"build_3"     : "img/build_3.png",
+		"bullet"      : "img/bullet.png",
+		"enemy_1"     : "img/enemy_1.png",
+		"enemy_2"     : "img/enemy_2.png",
+		"enemy_3"     : "img/enemy_3.png",
+		"enemy_4"     : "img/enemy_4.png",
+		"enemy_5"     : "img/enemy_5.png",
+		"enemy_6"     : "img/enemy_6.png",
+		"run_1"       : "img/run_1.png",
+		"run_2"       : "img/run_2.png",
+		"run_3"       : "img/run_3.png",
+		"run_4"       : "img/run_4.png",
+		"run_5"       : "img/run_5.png",
+		"run_6"       : "img/run_6.png",
+		"shot_1"      : "img/shot_1.png",
+		"shot_2"      : "img/shot_2.png",
+		"shot_3"      : "img/shot_3.png",
+		"shot_4"      : "img/shot_4.png",
+		"shot_5"      : "img/shot_5.png",
+		"shot_6"      : "img/shot_6.png",
+		"jump_run_1"  : "img/jump_run_1.png",
+		"jump_run_2"  : "img/jump_run_2.png",
+		"jump_run_3"  : "img/jump_run_3.png",
+		"jump_shot_1" : "img/jump_shot_1.png",
+		"jump_shot_2" : "img/jump_shot_2.png",
+		"jump_shot_3" : "img/jump_shot_3.png"
+	},
+
+	"speed" : 0.5,
+	"wait"  : 0,
+
+	"frame" : {
+		"line_width" : 0,
+		"stroke_style": "white",
+		"aspect":2,
+		"aspect-memo":"height÷widthの値"
 	},
 	
 	"bg":{
 		"direction" : -1,
 		"color" : ["#061146","#1c3be1"],
-		"leyers" : [
+		"layers" : [
 			{
 				"key": "bg_1",
-				"height_rate" : 0.70,
+				"line_width" : 0,
+				"stroke_style": "red",
+				"height_rate" : 1.0,
 				"speed"   : 1,
 				"pos" : {
 					"x" : 0,
@@ -43,7 +61,9 @@
 			},
 			{
 				"key": "bg_2",
-				"height_rate" : 0.65,
+				"line_width" : 0,
+				"stroke_style": "orange",
+				"height_rate" : 0.9,
 				"speed"   : 2,
 				"pos" : {
 					"x" : 0,
@@ -52,7 +72,9 @@
 			},
 			{
 				"key": "bg_3",
-				"height_rate" : 0.60,
+				"line_width" : 0,
+				"stroke_style": "white",
+				"height_rate" : 0.9,
 				"speed"   : 3,
 				"pos" : {
 					"x" : 0,
@@ -64,11 +86,7 @@
 
 	"build":{
 		"speed" : 4,
-		"start":[
-			{
-				"key": "build_1"
-			}
-		],
+		"size_rate" : 1.5,
 		"items":[
 			{
 				"key": "build_1"
@@ -78,6 +96,75 @@
 			},
 			{
 				"key": "build_3"
+			}
+		]
+	},
+
+	"chara":{
+		"line_width" : 0,
+		"stroke_style": "white",
+		"pos_x" : 100,
+		"speed" : 7,
+		"run":[
+			{
+				"key" : "run_1"
+			},
+			{
+				"key" : "run_2"
+			},
+			{
+				"key" : "run_3"
+			},
+			{
+				"key" : "run_4"
+			},
+			{
+				"key" : "run_5"
+			},
+			{
+				"key" : "run_6"
+			}
+		],
+		"shot":[
+			{
+				"key" : "shot_1"
+			},
+			{
+				"key" : "shot_2"
+			},
+			{
+				"key" : "shot_3"
+			},
+			{
+				"key" : "shot_4"
+			},
+			{
+				"key" : "shot_5"
+			},
+			{
+				"key" : "shot_6"
+			}
+		],
+		"jump_run" : [
+			{
+				"key" : "jump_run_1"
+			},
+			{
+				"key" : "jump_run_2"
+			},
+			{
+				"key" : "jump_run_3"
+			}
+		],
+		"jump_shot" : [
+			{
+				"key" : "jump_shot_1"
+			},
+			{
+				"key" : "jump_shot_2"
+			},
+			{
+				"key" : "jump_shot_3"
 			}
 		]
 	}

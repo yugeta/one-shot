@@ -1,17 +1,26 @@
-import { Init }      from "./init.js"
 import { Load }      from "./load.js"
 import { Canvas }    from "./canvas.js"
 import { Animation } from "./animation.js"
+import { Event }     from "./event.js"
+import { Data }      from "./data.js"
+import { Bg }        from "./bg.js"
+import { Build }     from "./build.js"
+import { Chara }     from "./chara.js"
 
 class Main{
 	constructor(){
 		new Load().promise.then(()=> this.loaded())
-		new Init()
+		new Event()
 	}
 
 	loaded(){
 		new Canvas()
+		Data.bg    = new Bg()
+		Data.build = new Build()
+		Data.chara = new Chara()
 		new Animation()
+
+		// setTimeout((()=>{Data.status = "pause"}) , 1000)
 	}
 }
 

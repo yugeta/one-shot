@@ -1,44 +1,56 @@
 import { Data }   from "./data.js"
 
 export class Build{
-	offset_px = 0
+	scroll_x  = 0
+	offset_x  = 0
+	items     = []
 	builds    = []
-	gap       = 50
+	rate      = 1.0
+	speed     = 1
 
 	constructor(){
+		this.set_item_datas()
+		this.set_speed()
 		this.init()
-		this.create_builds()
-		this.view()
-		console.log(this.builds)
+		this.set_event()
 	}
 
-	init(){
+	get first_build(){
+		const data = Data.images.find(e => e.key === Data.setting.build.items[0].key)
+		return data || null
+	}
+
+	get main_rate(){
+		return Data.setting.build.size_rate
+	}
+
+	set_item_datas(){
 		for(const item of Data.setting.build.items){
 			const data = Data.images.find(e => e.key === item.key)
 			if(!data){continue}
-			const rate = this.height_rate(data.h)
 			item.data  = data.data
-			item.w     = data.w * rate
-			item.h     = data.h * rate
+			item.w     = data.w
+			item.h     = data.h
 		}
 	}
 
-	height_rate(img_size_h){
-		return Data.canvas.height / img_size_h * 0.8
+	set_speed(){
+		this.speed = Data.speed(Data.setting.build.speed)
 	}
 
-	create_builds(){
-		if(this.is_enough_end_x() === true){return}
-		if(this.builds && this.builds.length > 100){return}
-		const build = this.get_random_pick_build()
-		this.builds.push({
-			data : build.data,
-			w    : build.w,
-			h    : build.h,
-			gap  : this.get_random_range(50 , 150),
-			size : this.get_random_range(10 , 70),
-		})
-		this.create_builds()
+	init(){
+		this.set_rate()
+		this.items = Data.setting.build.items
+	}
+
+	set_event(){
+		window.addEventListener("resize", this.init.bind(this))
+	}
+
+	set_rate(){
+		const first_build = this.first_build
+		if(!first_build){return}
+		this.rate = Data.back.height / first_build.h * this.main_rate
 	}
 
 	// 任意の値間でのランダム値を返す
@@ -46,67 +58,86 @@ export class Build{
 		return Math.floor(Math.random() * (max - min)) + min
 	}
 
-	// 配置されているビル(map)の右端の座標を取得
-	get_map_end_x(){
-		let end_x = 0
-		if(this.builds.length){
-			for(const build of this.builds){
-				end_x += build.w + build.gap
-			}
-		}
-		return end_x
-	}
-
-	// ビルの右端座標が、表示画面の２倍よりも大きい場合は処理をしない
-	is_enough_end_x(){
-		const end_x = this.get_map_end_x()
-		return Data.canvas.width * 2 + this.offset_px < end_x ? true : false
-	}
-
 	// 複数のビルの種類から１つをランダムで取得
 	get_random_pick_build(){
-		const build_num =  Math.floor(Math.random() * Data.setting.build.items.length)
-		return Data.setting.build.items[build_num]
+		const build_num  = Math.floor(Math.random() * this.items.length)
+		const d = Data.setting.build.items[build_num]
+		return {
+			key  : d.key,
+			data : d.data,
+			w    : d.w,
+			h    : d.h,
+		}
+	}
+	get_key2build(key){
+		return Data.images.find(e => e.key === key)
 	}
 
 	// ----------
 	// 表示処理
 	view(){
-		let offset = 0
-		this.rebuild_builds()
+		this.scroll_x += this.speed
+		this.offset_x = 0
+		this.builds_delete() // 流れすぎたビルを削除
+		this.builds_view()   // データ登録のビルを表示
+	}
+
+	builds_view(){
 		for(const build of this.builds){
-			Data.ctx.drawImage(
-				build.data, 
-				this.offset_px * Data.setting.bg.direction + offset + build.gap, 
-				// Data.canvas.height /2, 
-				Data.canvas.height * ((100 - build.size) / 100),
-				build.w, 
-				build.h
-			)
-			offset += build.w + build.gap
+			this.build_view(build)
 		}
-		this.offset_px += Data.setting.build.speed
+		// ２画面分のビルを作成
+		if(this.offset_x < Data.back.width * 2){
+			this.build_create()
+		}
+	}
+	build_view(build){
+		const pos = {
+			x : this.scroll_x + this.offset_x,
+			y : Data.diff.height + build.rand,
+		}
+		Data.ctx.drawImage(
+			build.data, 
+			pos.x, 
+			pos.y,
+			build.w * this.rate, 
+			build.h * this.rate
+		)
+		this.offset_x += build.w * this.rate + build.gap * this.rate
 	}
 
-	rebuild_builds(){
+	build_create(){
+		const rand_build = this.get_random_pick_build()
+		rand_build.rand = this.get_random_range(10 , 70)
+		rand_build.gap  = this.get_random_range(10 , 80)
+		this.builds.push(rand_build)
+		this.build_view(rand_build)
+	}
+
+	builds_delete(){
 		if(!this.builds.length){return}
-
-		// 流れすぎたビルの削除処理
-		let flg = 0
-		for(let i=0; i<this.builds.length; i++){
-			const build = this.builds[i]
-			if(this.offset_px >= build.w + build.gap){
-// console.log(this.offset_px,build.w , build.gap)
-				this.offset_px -= build.w + build.gap
-				this.builds.shift()
-				flg++
-			}
-			break
-		}
-
-		// ビルの追加
-		if(flg){
-			this.create_builds()
+		const x = this.builds[0].w * this.rate + this.builds[0].gap * this.rate
+		if(this.scroll_x + x < 0){
+			
+			this.scroll_x += x
+			this.builds.shift()
 		}
 	}
+
+	get_current_build(chara_pos_x){
+		let offset = this.scroll_x
+		for(const build of this.builds){
+			// build
+			offset += build.w * this.rate
+			if(offset > chara_pos_x){
+				return build
+			}
+			// gap
+			offset += build.gap * this.rate
+			if(offset > chara_pos_x){
+				return null
+			}
+		}
+	}
+
 }

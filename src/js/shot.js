@@ -24,6 +24,7 @@ export class Shot{
 	}
 
 	shoot(){
+		if(Data.setting.shot.limit_count && this.bullets.length >= Data.setting.shot.limit_count){return}
 		// const pos = Data.chara.center_pos
 		this.bullets.push({
 			type : this.status,

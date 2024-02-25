@@ -212,7 +212,7 @@ export class Chara{
 			case 32: // space code:"Space"
 			case 88: // x code:"KeyX"
 				// this.status = "jump"
-				if(this.status !== "fall"){
+				if(this.status !== "fall" && !this.jump_flg){
 					this.jump_flg = true
 					this.jump_down = true
 					// this.pos.y = 0

@@ -9,7 +9,6 @@ export class Build{
 	speed     = 1
 
 	constructor(){
-		this.set_item_datas()
 		this.set_speed()
 		this.init()
 		this.set_event()
@@ -22,16 +21,6 @@ export class Build{
 
 	get main_rate(){
 		return Data.setting.build.size_rate
-	}
-
-	set_item_datas(){
-		for(const item of Data.setting.build.items){
-			const data = Data.images.find(e => e.key === item.key)
-			if(!data){continue}
-			item.data  = data.data
-			item.w     = data.w
-			item.h     = data.h
-		}
 	}
 
 	set_speed(){
@@ -64,7 +53,7 @@ export class Build{
 		const d = Data.setting.build.items[build_num]
 		return {
 			key  : d.key,
-			data : d.data,
+			img  : d.img,
 			w    : d.w,
 			h    : d.h,
 		}
@@ -97,7 +86,7 @@ export class Build{
 			y : Data.diff.height + build.rand,
 		}
 		Data.ctx.drawImage(
-			build.data, 
+			build.img, 
 			pos.x, 
 			pos.y,
 			build.w * this.rate, 
@@ -108,8 +97,8 @@ export class Build{
 
 	build_create(){
 		const rand_build = this.get_random_pick_build()
-		rand_build.rand = this.get_random_range(10 , 70)
-		rand_build.gap  = this.get_random_range(10 , 80)
+		rand_build.rand = this.get_random_range(Data.setting.build.height_random.min , Data.setting.build.height_random.max)
+		rand_build.gap  = this.get_random_range(Data.setting.build.between_gap_random.min , Data.setting.build.between_gap_random.max)
 		this.builds.push(rand_build)
 		this.build_view(rand_build)
 	}
@@ -137,6 +126,19 @@ export class Build{
 			if(offset > chara_pos_x){
 				return null
 			}
+		}
+	}
+
+	get_current_build_top(chara_pos_x){
+		// console.log(Data.setting.chara.run[0].h,Data.chara.rate)
+		// if(!Data.setting.chara){return Data.canvas.height - Data.setting.chara.run[0].h * Data.setting.chara.rate}
+		// console.log(Data.chara)
+		const target_build = this.get_current_build(chara_pos_x)
+		if(!target_build){
+			return Data.canvas.height - (Data.setting.chara.run[0].h * Data.setting.chara.rate)
+		}
+		else{
+			return Data.diff.height + target_build.rand - (Data.setting.chara.run[0].h * Data.setting.chara.rate)
 		}
 	}
 

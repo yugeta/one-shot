@@ -39,6 +39,7 @@ export class Animation{
 		Data.bg.view()
 		Data.build.view()
 		Data.chara.view()
+		Data.shot.view()
 		Canvas.frame_view()
 	}
 }

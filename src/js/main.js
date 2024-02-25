@@ -6,6 +6,7 @@ import { Data }      from "./data.js"
 import { Bg }        from "./bg.js"
 import { Build }     from "./build.js"
 import { Chara }     from "./chara.js"
+import { Shot }      from "./shot.js"
 
 class Main{
 	constructor(){
@@ -18,6 +19,7 @@ class Main{
 		Data.bg    = new Bg()
 		Data.build = new Build()
 		Data.chara = new Chara()
+		Data.shot  = new Shot()
 		new Animation()
 
 		// setTimeout((()=>{Data.status = "pause"}) , 1000)

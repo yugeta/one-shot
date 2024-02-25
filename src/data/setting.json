@@ -7,7 +7,8 @@
 		"build_1"     : "img/build_1.png",
 		"build_2"     : "img/build_2.png",
 		"build_3"     : "img/build_3.png",
-		"bullet"      : "img/bullet.png",
+		"bullet_1"    : "img/bullet_1.png",
+		"bullet_2"    : "img/bullet_2.png",
 		"enemy_1"     : "img/enemy_1.png",
 		"enemy_2"     : "img/enemy_2.png",
 		"enemy_3"     : "img/enemy_3.png",
@@ -31,7 +32,10 @@
 		"jump_run_3"  : "img/jump_run_3.png",
 		"jump_shot_1" : "img/jump_shot_1.png",
 		"jump_shot_2" : "img/jump_shot_2.png",
-		"jump_shot_3" : "img/jump_shot_3.png"
+		"jump_shot_3" : "img/jump_shot_3.png",
+		"damage_1"    : "img/damage_1.png",
+		"damage_2"    : "img/damage_2.png",
+		"danage_3"    : "img/damage_3.png"
 	},
 
 	"speed" : 0.5,
@@ -87,6 +91,14 @@
 	"build":{
 		"speed" : 4,
 		"size_rate" : 1.5,
+		"height_random" : {
+			"min" : 10,
+			"max" : 70
+		},
+		"between_gap_random" : {
+			"min" : 5,
+			"max" : 50
+		},
 		"items":[
 			{
 				"key": "build_1"
@@ -105,6 +117,7 @@
 		"stroke_style": "white",
 		"pos_x" : 100,
 		"speed" : 7,
+		"rate" : 1.0,
 		"run":[
 			{
 				"key" : "run_1"
@@ -167,5 +180,18 @@
 				"key" : "jump_shot_3"
 			}
 		]
+	},
+
+	"shot" :{
+		"status" : "bullet_1",
+		"pos_y"  : 25,
+		"line_width"   : 0,
+		"stroke_style" : "white",
+		"speed"  : 10,
+		"jump_vel" : -100,
+		"items" : {
+			"bullet_1":{},
+			"bullet_2":{}
+		}
 	}
 }

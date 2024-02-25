@@ -6,35 +6,62 @@ export class Chara{
 	rate      = 1.0
 	pos       = {x:null,y:null}
 
+	jump_flg  = false // ジャンプフラグ
+	jump_time = 0     // ジャンプ時間
+	jump_acc  = 1     // 重力加速度
+	jump_vel  = 0     // y方向の速度
+
 	constructor(){
-		this.run = this.data_run()
 		this.init()
 		this.set_event()
+		const x = Data.setting.chara.pos_x
+		this.pos = {
+			x : x,
+			y : 0,
+		}
+		// console.log(this.pos)
 	}
+
+	get run(){
+		return Data.setting.chara.run
+	}
+	get shot(){
+		return Data.setting.chara.shot
+	}
+
+	get pos_x(){
+		return Data.setting.chara.pos_x + this.run[0].w / 2
+	}
+
+	get pos_y(){
+		const build_top = Data.build.get_current_build_top(this.pos.x)
+		if(this.jump_flg){
+			this.pos.y = 0
+		}
+		else if(build_top > this.pos.y){
+			this.pos.y = build_top
+		}
+		return this.pos.y
+		// // 通常
+		// if(!this.jump_flg){
+		// 	// ビルのトップ座標を取得
+		// 	return Data.build.get_current_build_top(this.pos_x)
+		// }
+		// // ジャンプ
+		// else{
+		// 	return this.jump()
+		// }
+	}
+
+	// get center_pos(){
+	// 	return {
+	// 		x: this.pos_x,
+	// 		y: this.pos_y,
+	// 	}
+	// }
 
 	set_rate(){
-		this.rate = (Data.back.height / 2.5) / this.run[0].h
-	}
-
-	// 走りモーション
-	data_run(){
-		const datas = []
-		for(const d of Data.setting.chara.run){
-			const key = d.key
-			const data = Data.images.find(e => e.key === key)
-			if(!data){continue}
-			datas.push({
-				key : key,
-				img : data.data,
-				w   : data.w,
-				h   : data.h,
-			})
-		}
-		return datas
-	}
-
-	data_shot(){
-		return Data.setting.chara.shot
+		Data.setting.chara.rate = (Data.back.height / 2.5) / this.run[0].h
 	}
 
 	init(){
@@ -42,16 +69,20 @@ export class Chara{
 	}
 
 	set_event(){
-		window.addEventListener("resize", this.init.bind(this))
+		window.addEventListener("resize"   , this.init.bind(this))
+		window.addEventListener("keydown"  , this.key_down.bind(this))
+		window.addEventListener("keyup"    , this.key_up.bind(this))
 	}
 
 	view(){
 		const d   = this.chara_data(this.chara_num)
 		const img = d.img
-		const x   = Data.setting.chara.pos_x
-		const y   = this.pos_y()
-		const w   = d.w * this.rate
-		const h   = d.h * this.rate
+		const x   = this.pos.x
+		const y   = this.pos_y
+		// const x   = Data.setting.chara.pos_x
+		// const y   = this.pos_y
+		const w   = d.w * Data.setting.chara.rate
+		const h   = d.h * Data.setting.chara.rate
 		Data.ctx.drawImage(img, x, y, w, h)
 		if(this.speed % Data.setting.chara.speed === 0){
 			this.chara_num++
@@ -75,33 +106,65 @@ export class Chara{
 	}
 
 	chara_data(num){
-		return this.run[num]
-	}
+		switch(this.status){
+			case "shot":
+				return Data.setting.chara.shot[num]
 
-	animation(){
-
-	}
-
-	current_pos(){
-		return Data.setting.chara.pos_x + this.run[0].w / 2
-	}
-
-	pos_y(){
-		const current_build = Data.build.get_current_build(this.current_pos())
-		if(!current_build){
-			return Data.canvas.height - (this.run[0].h * this.rate)
+			// run
+			default:
+				return Data.setting.chara.run[num]
 		}
-		// console.log(current_build.key)
-		const build_y = Data.diff.height + current_build.rand - (this.run[0].h * this.rate)
-		return build_y
 	}
 
-	collision(){
+	key_down(e){
+		if(e.repeat){return}
+		switch(e.keyCode){
+			// jump
+			case 32: // space code:"Space"
+			case 88: // x code:"KeyX"
+				// this.status = "jump"
+				this.jump_flg = true
+				this.jump_vel = this.pos_y - Data.setting.jump_vel * Data.setting.chara.rate
+				// this.jump()
+			break
 
+			// shot
+			case 90: //z code: "KeyZ"
+				this.status = "shot"
+				Data.shot.shoot()
+			break
+
+			default:
+				this.status = null
+			break
+		}
 	}
 
-	shot(){
+	key_up(e){
+		switch(e.keyCode){
+			// jump
+			case 32:  // space
+			case 88: // x
+				// this.status = "jump"
+				this.jump_flg = false
+			break
 
+			// shot-cancel
+			case 90: //z
+				this.status = null
+			break
+
+			default:
+				this.status = null
+			break
+		}
 	}
 
+	jump(){
+		this.jump_vel += this.jump_acc
+
+		return 0
+	}
+
+	
 }

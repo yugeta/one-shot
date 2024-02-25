@@ -13,6 +13,8 @@ export class Chara{
 	jump_vel   = 0     // 速度
 	jump_grab  = 7.8   // 重力加速度
 	jump_prev  = null
+	jump_h     = 100
+	jump_down  = false
 	
 
 	constructor(){
@@ -45,6 +47,11 @@ export class Chara{
 		const build_top = this.build_top
 		if(this.jump_flg){
 
+			if(this.jump_down){
+				this.jump_h -= 3
+				this.jump_h = this.jump_h < 0 ? 0 : this.jump_h
+			}
+
 			// this.pos.y = 0
 			// init
 			if(this.jump_cnt === 0){
@@ -56,13 +63,14 @@ export class Chara{
 				this.pos.y = build_top
 				this.jump_flg = false
 				this.jump_cnt = 0
+				this.jump_h   = 100
 			}
 
 			// ２回目以降
 			else{
 				// 0.5*gravity*time*time - v0*time + HORIZONTAL_Y
 				// const y = this.jump_coef * 2 * (this.jump_cnt ** 2) - this.jump_grab * this.jump_cnt
-				const y = (this.jump_coef * (this.jump_cnt ** 2) - this.jump_grab * this.jump_cnt)
+				const y = (this.jump_coef * (this.jump_cnt ** 2) - this.jump_grab * this.jump_cnt) + (this.jump_h * Data.setting.chara.rate)
 				// const y = (this.pos.y - this.jump_prev) + 1
 				this.pos.y = y
 				// this.jump_prev = y
@@ -206,6 +214,7 @@ export class Chara{
 				// this.status = "jump"
 				if(this.status !== "fall"){
 					this.jump_flg = true
+					this.jump_down = true
 					// this.pos.y = 0
 				}
 				// this.jump_vel = this.pos_y - Data.setting.jump_vel * Data.setting.chara.rate
@@ -232,6 +241,7 @@ export class Chara{
 			case 88: // x
 				// this.status = "jump"
 				// this.jump_flg = false
+				this.jump_down = false
 			break
 
 			// shot-cancel

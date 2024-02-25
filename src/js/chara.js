@@ -60,6 +60,7 @@ export class Chara{
 
 			// 終了判定
 			else if(this.pos.y > build_top){
+				this.jump_prev = this.pos.y
 				this.pos.y = build_top
 				this.jump_flg = false
 				this.jump_cnt = 0
@@ -68,26 +69,11 @@ export class Chara{
 
 			// ２回目以降
 			else{
-				// 0.5*gravity*time*time - v0*time + HORIZONTAL_Y
-				// const y = this.jump_coef * 2 * (this.jump_cnt ** 2) - this.jump_grab * this.jump_cnt
 				const y = (this.jump_coef * (this.jump_cnt ** 2) - this.jump_grab * this.jump_cnt) + (this.jump_h * Data.setting.chara.rate)
-				// const y = (this.pos.y - this.jump_prev) + 1
+				this.jump_prev = this.pos.y
 				this.pos.y = y
-				// this.jump_prev = y
-				// if(this.pos.y > build_top){
-				// 	this.pos.y = build_top
-				// }
 			}
 
-			// // 終了判定
-			// if(!this.jump_cnt && this.pos.y > build_top){
-			// 	this.pos.y = build_top
-			// 	this.jump_flg = false
-			// 	this.jump_cnt = 0
-			// }
-			// else{
-			// 	this.jump_cnt++
-			// }
 			this.jump_cnt++
 		}
 
@@ -102,39 +88,14 @@ export class Chara{
 			}
 			this.jump_vel += this.jump_grab * this.jump_coef
 			this.pos.y += this.jump_vel  * this.jump_coef
-			// const diff     = this.jump_vel  * this.jump_coef
-			// const diff     = (this.jump_grab * this.jump_coef) * this.jump_coef
-			// this.pos.y    += diff
 			if(fall_flg && build_top < this.pos.y){
-			// if(this.pos.y - build_top <= diff){
 				this.status = null
 				this.pos.y = build_top
 			}
 			
 		}
-
-		// if(this.pos.y > Data.canvas.height){
-		// 	Data.status = "end"
-		// }
-// console.log(this.status,build_top,this.pos.y)
 		return this.pos.y
-		// // 通常
-		// if(!this.jump_flg){
-		// 	// ビルのトップ座標を取得
-		// 	return Data.build.get_current_build_top(this.pos_x)
-		// }
-		// // ジャンプ
-		// else{
-		// 	return this.jump()
-		// }
 	}
-
-	// get center_pos(){
-	// 	return {
-	// 		x: this.pos_x,
-	// 		y: this.pos_y,
-	// 	}
-	// }
 
 	set_rate(){
 		Data.setting.chara.rate = (Data.back.height / 2.5) / this.run[0].h
@@ -185,16 +146,41 @@ export class Chara{
 			Data.status = "end"
 		}
 
-		// // 終了判定
-		// if(this.jump_flg && this.jump_cnt && this.pos.y >= this.build_top){
-		// 	this.pos.y = this.build_top
-		// 	this.jump_flg = false
-		// 	this.jump_cnt = 0
-		// }
 	}
 
 	chara_data(num){
+		if(this.jump_flg){
+			if(this.jump_prev - this.pos.y > 1){
+				switch(this.status){
+					case "shot":
+						return Data.setting.chara.jump_shot[0]
+					default:
+						return Data.setting.chara.jump_run[0]
+				}
+			}
+			else if(this.jump_prev - this.pos.y < -1){
+				switch(this.status){
+					case "shot":
+						return Data.setting.chara.jump_shot[2]
+					default:
+						return Data.setting.chara.jump_run[2]
+				}
+			}
+			else{
+				switch(this.status){
+					case "shot":
+						return Data.setting.chara.jump_shot[1]
+					default:
+						return Data.setting.chara.jump_run[1]
+				}
+			}
+		}
+
 		switch(this.status){
+
+			case "fall":
+				return Data.setting.chara.jump_run[1]
+
 			case "shot":
 				return Data.setting.chara.shot[num]
 
@@ -206,20 +192,14 @@ export class Chara{
 
 	key_down(e){
 		if(e.repeat){return}
-		// console.log(e.keyCode)
 		switch(e.keyCode){
 			// jump
 			case 32: // space code:"Space"
 			case 88: // x code:"KeyX"
-				// this.status = "jump"
 				if(this.status !== "fall" && !this.jump_flg){
 					this.jump_flg = true
 					this.jump_down = true
-					// this.pos.y = 0
 				}
-				// this.jump_vel = this.pos_y - Data.setting.jump_vel * Data.setting.chara.rate
-
-				// this.jump()
 			break
 
 			// shot
@@ -239,8 +219,6 @@ export class Chara{
 			// jump
 			case 32:  // space
 			case 88: // x
-				// this.status = "jump"
-				// this.jump_flg = false
 				this.jump_down = false
 			break
 

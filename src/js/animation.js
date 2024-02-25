@@ -18,7 +18,9 @@ export class Animation{
 				this.view()
 			break
 
+			case "end":
 			case "pause":
+				// console.log("end")
 			break
 			
 			case "stop":

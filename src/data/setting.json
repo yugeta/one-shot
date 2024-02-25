@@ -96,8 +96,8 @@
 			"max" : 70
 		},
 		"between_gap_random" : {
-			"min" : 5,
-			"max" : 50
+			"min" : 20,
+			"max" : 40
 		},
 		"items":[
 			{
@@ -118,6 +118,10 @@
 		"pos_x" : 100,
 		"speed" : 7,
 		"rate" : 1.0,
+		"collision_offset_w" : {
+			"min" : 10,
+			"max" : 40
+		},
 		"run":[
 			{
 				"key" : "run_1"

@@ -130,15 +130,33 @@ export class Build{
 	}
 
 	get_current_build_top(chara_pos_x){
+		// const pos_x_1 = chara_pos_x + 20
+		const pos_x_1 = chara_pos_x + Data.setting.chara.collision_offset_w.min * Data.setting.chara.rate
+		const pos_x_2 = chara_pos_x + (Data.setting.chara.run[0].w * Data.setting.chara.rate) - (Data.setting.chara.collision_offset_w.max * Data.setting.chara.rate)
+		const height  = Data.setting.chara.run[0].h * Data.setting.chara.rate
+		// console.log(pos_x_1,pos_x_2)
+		// const top_1   = null
+		// const top_2   = null
 		// console.log(Data.setting.chara.run[0].h,Data.chara.rate)
 		// if(!Data.setting.chara){return Data.canvas.height - Data.setting.chara.run[0].h * Data.setting.chara.rate}
 		// console.log(Data.chara)
-		const target_build = this.get_current_build(chara_pos_x)
-		if(!target_build){
-			return Data.canvas.height - (Data.setting.chara.run[0].h * Data.setting.chara.rate)
+		const target_build_1 = this.get_current_build(pos_x_1)
+		const target_build_2 = this.get_current_build(pos_x_2)
+		if(!target_build_1 && !target_build_2){
+			// return Data.canvas.height - (Data.setting.chara.run[0].h * Data.setting.chara.rate)
+			return Data.canvas.height + height
+		}
+		else if(target_build_1 && !target_build_2){
+			return Data.diff.height + target_build_1.rand - height
+		}
+		else if(!target_build_1 && target_build_2){
+			return Data.diff.height + target_build_2.rand - height
+		}
+		else if(target_build_1.rand > target_build_2.rand){
+			return Data.diff.height + target_build_2.rand - height
 		}
 		else{
-			return Data.diff.height + target_build.rand - (Data.setting.chara.run[0].h * Data.setting.chara.rate)
+			return Data.diff.height + target_build_1.rand - height
 		}
 	}
 

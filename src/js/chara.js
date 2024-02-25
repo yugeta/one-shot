@@ -6,10 +6,14 @@ export class Chara{
 	rate      = 1.0
 	pos       = {x:null,y:null}
 
-	jump_flg  = false // ジャンプフラグ
-	jump_time = 0     // ジャンプ時間
-	jump_acc  = 1     // 重力加速度
-	jump_vel  = 0     // y方向の速度
+	jump_flg   = false // ジャンプフラグ
+	jump_cnt   = 0     // ジャンプ継続回数
+	jump_coef  = 0.15  // ジャンプ時間係数
+	jump_acc   = 1     // 重力加速度
+	jump_vel   = 0     // 速度
+	jump_grab  = 7.8   // 重力加速度
+	jump_prev  = null
+	
 
 	constructor(){
 		this.init()
@@ -33,14 +37,78 @@ export class Chara{
 		return Data.setting.chara.pos_x + this.run[0].w / 2
 	}
 
+	get build_top(){
+		return Data.build.get_current_build_top(this.pos.x)
+	}
+
 	get pos_y(){
-		const build_top = Data.build.get_current_build_top(this.pos.x)
+		const build_top = this.build_top
 		if(this.jump_flg){
-			this.pos.y = 0
+
+			// this.pos.y = 0
+			// init
+			if(this.jump_cnt === 0){
+				
+			}
+
+			// 終了判定
+			else if(this.pos.y > build_top){
+				this.pos.y = build_top
+				this.jump_flg = false
+				this.jump_cnt = 0
+			}
+
+			// ２回目以降
+			else{
+				// 0.5*gravity*time*time - v0*time + HORIZONTAL_Y
+				// const y = this.jump_coef * 2 * (this.jump_cnt ** 2) - this.jump_grab * this.jump_cnt
+				const y = (this.jump_coef * (this.jump_cnt ** 2) - this.jump_grab * this.jump_cnt)
+				// const y = (this.pos.y - this.jump_prev) + 1
+				this.pos.y = y
+				// this.jump_prev = y
+				// if(this.pos.y > build_top){
+				// 	this.pos.y = build_top
+				// }
+			}
+
+			// // 終了判定
+			// if(!this.jump_cnt && this.pos.y > build_top){
+			// 	this.pos.y = build_top
+			// 	this.jump_flg = false
+			// 	this.jump_cnt = 0
+			// }
+			// else{
+			// 	this.jump_cnt++
+			// }
+			this.jump_cnt++
 		}
-		else if(build_top > this.pos.y){
-			this.pos.y = build_top
+
+		else if(build_top !== this.pos.y){
+			if(this.status !== "fall"){
+				this.jump_vel = 0
+			}
+			this.status = "fall"
+			let fall_flg = false
+			if(build_top > this.pos.y){
+				fall_flg = true
+			}
+			this.jump_vel += this.jump_grab * this.jump_coef
+			this.pos.y += this.jump_vel  * this.jump_coef
+			// const diff     = this.jump_vel  * this.jump_coef
+			// const diff     = (this.jump_grab * this.jump_coef) * this.jump_coef
+			// this.pos.y    += diff
+			if(fall_flg && build_top < this.pos.y){
+			// if(this.pos.y - build_top <= diff){
+				this.status = null
+				this.pos.y = build_top
+			}
+			
 		}
+
+		// if(this.pos.y > Data.canvas.height){
+		// 	Data.status = "end"
+		// }
+// console.log(this.status,build_top,this.pos.y)
 		return this.pos.y
 		// // 通常
 		// if(!this.jump_flg){
@@ -103,6 +171,18 @@ export class Chara{
 			Data.ctx.lineTo(x+w/2, Data.canvas.height)
 			Data.ctx.stroke()
 		}
+
+		// 落ちてゲームオーバー
+		if(this.pos.y > Data.canvas.height){
+			Data.status = "end"
+		}
+
+		// // 終了判定
+		// if(this.jump_flg && this.jump_cnt && this.pos.y >= this.build_top){
+		// 	this.pos.y = this.build_top
+		// 	this.jump_flg = false
+		// 	this.jump_cnt = 0
+		// }
 	}
 
 	chara_data(num){
@@ -118,13 +198,18 @@ export class Chara{
 
 	key_down(e){
 		if(e.repeat){return}
+		// console.log(e.keyCode)
 		switch(e.keyCode){
 			// jump
 			case 32: // space code:"Space"
 			case 88: // x code:"KeyX"
 				// this.status = "jump"
-				this.jump_flg = true
-				this.jump_vel = this.pos_y - Data.setting.jump_vel * Data.setting.chara.rate
+				if(this.status !== "fall"){
+					this.jump_flg = true
+					// this.pos.y = 0
+				}
+				// this.jump_vel = this.pos_y - Data.setting.jump_vel * Data.setting.chara.rate
+
 				// this.jump()
 			break
 
@@ -146,7 +231,7 @@ export class Chara{
 			case 32:  // space
 			case 88: // x
 				// this.status = "jump"
-				this.jump_flg = false
+				// this.jump_flg = false
 			break
 
 			// shot-cancel

@@ -19,3 +19,5 @@ Author : Yugeta.Koji
 # 不足素材（画像）
 - 敵のヒットエフェクト
 
+# Github.io
+- https://yugeta.github.io/one-shot/src/

@@ -7,9 +7,12 @@ import { Bg }        from "./bg.js"
 import { Build }     from "./build.js"
 import { Chara }     from "./chara.js"
 import { Shot }      from "./shot.js"
+import { Loading }   from "./loading/loading.js"
 
 class Main{
 	constructor(){
+		new Loading()
+		Loading.set_status("loading")
 		new Load().promise.then(()=> this.loaded())
 		new Event()
 	}
@@ -20,8 +23,13 @@ class Main{
 		Data.build = new Build()
 		Data.chara = new Chara()
 		Data.shot  = new Shot()
-		new Animation()
-
+		
+		setTimeout((()=>{
+			Loading.set_status("passive")
+			new Animation()
+		}),1000)
+		
+		
 		// setTimeout((()=>{Data.status = "pause"}) , 1000)
 	}
 }

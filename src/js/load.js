@@ -45,7 +45,7 @@ export class Load{
 			this.loaded_images()
 			return
 		}
-		console.log(this.load_image_num / (image_keys.length-1))
+		// console.log(this.load_image_num / (image_keys.length-1))
 		Loading.set_rate(this.load_image_num / (image_keys.length-1) * 100)
 		const path = Data.setting.images[this.key]
 		// this.load_image(path)

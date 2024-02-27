@@ -116,8 +116,6 @@ export class Chara{
 		const img = d.img
 		const x   = this.pos.x
 		const y   = this.pos_y
-		// const x   = Data.setting.chara.pos_x
-		// const y   = this.pos_y
 		const w   = d.w * Data.setting.chara.rate
 		const h   = d.h * Data.setting.chara.rate
 		Data.ctx.drawImage(img, x, y, w, h)

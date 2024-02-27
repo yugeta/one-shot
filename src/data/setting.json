@@ -198,5 +198,29 @@
 			"bullet_2":{}
 		},
 		"limit_count" : 3
+	},
+
+	"enemy" : {
+		"speed" : 5,
+		"items":[
+			{
+				"key" : "enemy_1"
+			},
+			{
+				"key" : "enemy_2"
+			},
+			{
+				"key" : "enemy_3"
+			},
+			{
+				"key" : "enemy_4"
+			},
+			{
+				"key" : "enemy_5"
+			},
+			{
+				"key" : "enemy_6"
+			}
+		]
 	}
 }

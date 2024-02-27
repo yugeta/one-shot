@@ -7,6 +7,7 @@ import { Bg }        from "./bg.js"
 import { Build }     from "./build.js"
 import { Chara }     from "./chara.js"
 import { Shot }      from "./shot.js"
+import { Enemy }     from "./enemy.js"
 import { Loading }   from "./loading/loading.js"
 
 class Main{
@@ -23,6 +24,7 @@ class Main{
 		Data.build = new Build()
 		Data.chara = new Chara()
 		Data.shot  = new Shot()
+		Data.enemy = new Enemy()
 		
 		setTimeout((()=>{
 			Loading.set_status("passive")

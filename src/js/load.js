@@ -1,8 +1,10 @@
-import { Data } from "./data.js"
+import { Data }    from "./data.js"
+import { Loading } from "./loading/loading.js"
 
 export class Load{
 	load_image_num = 0
 	images = {}
+	load_total_count = 0
 
 	constructor(){
 		this.promise = new Promise((resolve,reject) => {
@@ -23,6 +25,7 @@ export class Load{
 		Data.setting = JSON.parse(e.target.response) || {}
 
 		if(Data.setting.images){
+			this.load_total_count = Data.setting.images.length
 			this.load_images()
 		}
 		else{
@@ -36,13 +39,18 @@ export class Load{
 			this.loaded_images()
 			return
 		}
+		
 		this.key = image_keys[this.load_image_num]
 		if(!this.key){
 			this.loaded_images()
 			return
 		}
+		console.log(this.load_image_num / (image_keys.length-1))
+		Loading.set_rate(this.load_image_num / (image_keys.length-1) * 100)
 		const path = Data.setting.images[this.key]
-		this.load_image(path)
+		// this.load_image(path)
+		// setTimeout(this.load_image.bind(this,path) , 100)
+		requestAnimationFrame(this.load_image.bind(this,path))
 	}
 
 	load_image(path){

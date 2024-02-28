@@ -8,14 +8,24 @@ import { Build }     from "./build.js"
 import { Chara }     from "./chara.js"
 import { Shot }      from "./shot.js"
 import { Enemy }     from "./enemy.js"
+import { Zip }       from "./zip.js"
 import { Loading }   from "./loading/loading.js"
 
 class Main{
 	constructor(){
 		new Loading()
 		Loading.set_status("loading")
-		new Load().promise.then(()=> this.loaded())
+		this.zip()
+		this.load()
 		new Event()
+	}
+
+	zip(){
+		new Zip()
+	}
+
+	load(){
+		new Load().promise.then(()=> this.loaded())
 	}
 
 	loaded(){

@@ -13,7 +13,7 @@ export class Zip{
 	path_zip     = "js/zip/zip.min.js"
 	path_unzip   = "js/zip/unzip.min.js"
 	loaded_types = []
-	path_data    = "data.zip"
+	path_data    = "img.zip"
 
 	// zip.jsとunzip.jsを読み込む
 	load_module(file){
@@ -55,7 +55,8 @@ export class Zip{
     const unzip     = new Zlib.Unzip(zipArr);
 		this.unzip      = unzip
 		const filenames = unzip.getFilenames();
-		this.set_files(filenames)
+// console.log(filenames)
+		// this.set_files(filenames)
 		await this.set_images(filenames)
 		Data.set_groups()
 		this.finish()

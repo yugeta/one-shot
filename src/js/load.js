@@ -23,57 +23,58 @@ export class Load{
 	}
 	loaded_setting(e){
 		Data.setting = JSON.parse(e.target.response) || {}
-
-		if(Data.setting.images){
-			this.load_total_count = Data.setting.images.length
-			this.load_images()
-		}
-		else{
-			this.finish()
-		}
-	}
-
-	load_images(){
-		const image_keys = Object.keys(Data.setting.images)
-		if(!image_keys || !image_keys.length){
-			this.loaded_images()
-			return
-		}
-		
-		this.key = image_keys[this.load_image_num]
-		if(!this.key){
-			this.loaded_images()
-			return
-		}
-		// console.log(this.load_image_num / (image_keys.length-1))
-		Loading.set_rate(this.load_image_num / (image_keys.length-1) * 100)
-		const path = Data.setting.images[this.key]
-		// this.load_image(path)
-		// setTimeout(this.load_image.bind(this,path) , 100)
-		requestAnimationFrame(this.load_image.bind(this,path))
-	}
-
-	load_image(path){
-		const img = new Image()
-		img.src = path
-		img.onload = this.loaded_image.bind(this)
-	}
-
-	loaded_image(e){
-		Data.images.push({
-			key  : this.key,
-			data : e.target,
-			w    : e.target.naturalWidth,
-			h    : e.target.naturalHeight,
-		})
-		this.load_image_num++
-		this.load_images()
-	}
-
-	loaded_images(){
-		// console.log(Data.images)
 		this.finish()
+
+		// if(Data.setting.images){
+		// 	this.load_total_count = Data.setting.images.length
+		// 	this.load_images()
+		// }
+		// else{
+		// 	this.finish()
+		// }
 	}
+
+	// load_images(){
+	// 	const image_keys = Object.keys(Data.setting.images)
+	// 	if(!image_keys || !image_keys.length){
+	// 		this.loaded_images()
+	// 		return
+	// 	}
+		
+	// 	this.key = image_keys[this.load_image_num]
+	// 	if(!this.key){
+	// 		this.loaded_images()
+	// 		return
+	// 	}
+	// 	// console.log(this.load_image_num / (image_keys.length-1))
+	// 	Loading.set_rate(this.load_image_num / (image_keys.length-1) * 100)
+	// 	const path = Data.setting.images[this.key]
+	// 	// this.load_image(path)
+	// 	// setTimeout(this.load_image.bind(this,path) , 100)
+	// 	requestAnimationFrame(this.load_image.bind(this,path))
+	// }
+
+	// load_image(path){
+	// 	const img = new Image()
+	// 	img.src = path
+	// 	img.onload = this.loaded_image.bind(this)
+	// }
+
+	// loaded_image(e){
+	// 	Data.images.push({
+	// 		key  : this.key,
+	// 		data : e.target,
+	// 		w    : e.target.naturalWidth,
+	// 		h    : e.target.naturalHeight,
+	// 	})
+	// 	this.load_image_num++
+	// 	this.load_images()
+	// }
+
+	// loaded_images(){
+	// 	// console.log(Data.images)
+	// 	this.finish()
+	// }
 
 	// set_groups(){
 	// 	this.set_group_bg()
@@ -153,7 +154,7 @@ export class Load{
 
 	finish(){
 		// console.log("images",Data.images)
-		Data.set_groups()
+		// Data.set_groups()
 		this.resolve()
 	}
 

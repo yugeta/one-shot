@@ -119,8 +119,9 @@
 	},
 
 	"chara":{
-		"line_width" : 0,
+		"line_width" : 1,
 		"stroke_style": "white",
+
 		"pos_x" : 100,
 		"speed" : 7,
 		"rate" : 1.0,
@@ -195,8 +196,9 @@
 	"shot" :{
 		"status" : "bullet_1",
 		"pos_y"  : 25,
-		"line_width"   : 0,
+		"line_width"   : 1,
 		"stroke_style" : "white",
+		
 		"speed"  : 10,
 		"jump_vel" : -100,
 		"items" : {
@@ -207,6 +209,9 @@
 	},
 
 	"enemy" : {
+		"line_width"   : 1,
+		"stroke_style" : "white",
+
 		"items":[
 			{
 				"speed" : 8,

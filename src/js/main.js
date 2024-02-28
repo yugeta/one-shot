@@ -1,4 +1,4 @@
-import { Load }      from "./load.js"
+// import { Load }      from "./load.js"
 import { Canvas }    from "./canvas.js"
 import { Animation } from "./animation.js"
 import { Event }     from "./event.js"
@@ -13,19 +13,18 @@ import { Loading }   from "./loading/loading.js"
 
 class Main{
 	constructor(){
-		new Loading()
-		Loading.set_status("loading")
-		this.zip()
 		this.load()
 		new Event()
 	}
 
-	zip(){
-		new Zip()
-	}
 
 	load(){
-		new Load().promise.then(()=> this.loaded())
+		new Loading()
+		Loading.set_status("loading")
+		new Zip().promise.then(()=> {
+			this.loaded()
+		})
+		// new Load().promise.then(()=> this.loaded())
 	}
 
 	loaded(){
@@ -39,8 +38,7 @@ class Main{
 		setTimeout((()=>{
 			Loading.set_status("passive")
 			new Animation()
-		}),1000)
-		
+		}),500)
 		
 		// setTimeout((()=>{Data.status = "pause"}) , 1000)
 	}

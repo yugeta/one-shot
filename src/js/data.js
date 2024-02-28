@@ -25,4 +25,5 @@ export class Data{
 	static speed(speed=1){
 		return speed * Data.setting.speed * Data.setting.bg.direction
 	}
+
 }

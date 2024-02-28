@@ -50,12 +50,18 @@ export class Shot{
 			const h   = bullet.h * Data.setting.chara.rate
 			Data.ctx.drawImage(img, x, y, w, h)
 
-			// frame
 			if(Data.setting.shot.line_width){
+				// frame
 				Data.ctx.lineWidth = Data.setting.shot.line_width
 				Data.ctx.strokeStyle = Data.setting.shot.stroke_style || "transparent"
 				Data.ctx.beginPath()
 				Data.ctx.rect(x,y,w,h)
+				Data.ctx.stroke()
+
+				// middle-line
+				Data.ctx.beginPath()
+				Data.ctx.moveTo(x+w/2, 0)
+				Data.ctx.lineTo(x+w/2, Data.canvas.height)
 				Data.ctx.stroke()
 			}
 			bullet.x += Data.setting.shot.speed

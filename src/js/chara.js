@@ -5,6 +5,7 @@ export class Chara{
 	speed     = 0
 	rate      = 1.0
 	pos       = {x:null,y:null}
+	size      = {w:null,h:null}
 
 	jump_flg   = false // ジャンプフラグ
 	jump_cnt   = 0     // ジャンプ継続回数
@@ -59,8 +60,7 @@ export class Chara{
 			}
 
 			// 着地判定
-			else if(this.pos.y > build_top){console.log(this.pos.y , build_top)
-			// else if(this.pos.y - (this.foot_buffer * Data.setting.chara.rate) > build_top){
+			else if(this.pos.y > build_top){
 				this.jump_prev = this.pos.y
 				this.pos.y = build_top
 				this.jump_flg = false
@@ -84,7 +84,6 @@ export class Chara{
 			}
 			this.status = "fall"
 			let fall_flg = false
-			// if(build_top > this.pos.y){
 			if(build_top > this.pos.y - (this.foot_buffer * Data.setting.chara.rate)){
 				fall_flg = true
 			}
@@ -120,6 +119,7 @@ export class Chara{
 		const y   = this.pos_y
 		const w   = d.w * Data.setting.chara.rate
 		const h   = d.h * Data.setting.chara.rate
+		this.size = {w : w, h: h}
 		Data.ctx.drawImage(img, x, y, w, h)
 		if(this.speed % Data.setting.chara.speed === 0){
 			this.chara_num++

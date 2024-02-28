@@ -69,11 +69,27 @@ export class Enemy{
 		const y    = data.pos.y
 		const w    = d.w * this.rate
 		const h    = d.h * this.rate
+		item.w = w
+		item.h = h
 		Data.ctx.drawImage(img, x, y, w, h)
 
 		this.pattern_num += 1 / item.speed
 		if(this.pattern_num >= Data.setting.enemy.items[data.num].pattern.length-1){
 			this.pattern_num = 0
+		}
+
+		if(Data.setting.enemy.line_width){
+			// frame
+			Data.ctx.lineWidth = Data.setting.enemy.line_width
+			Data.ctx.strokeStyle = Data.setting.enemy.stroke_style || "transparent"
+			Data.ctx.beginPath()
+			Data.ctx.rect(x,y,w,h)
+			Data.ctx.stroke()
+			// middle-line
+			Data.ctx.beginPath()
+			Data.ctx.moveTo(x+w/2, 0)
+			Data.ctx.lineTo(x+w/2, Data.canvas.height)
+			Data.ctx.stroke()
 		}
 
 		data.pos.x -= item.speed

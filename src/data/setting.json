@@ -15,6 +15,12 @@
 		"enemy_4"     : "img/enemy_4.png",
 		"enemy_5"     : "img/enemy_5.png",
 		"enemy_6"     : "img/enemy_6.png",
+		"enemy_b_1"     : "img/enemy_b_1.png",
+		"enemy_b_2"     : "img/enemy_b_2.png",
+		"enemy_b_3"     : "img/enemy_b_3.png",
+		"enemy_b_4"     : "img/enemy_b_4.png",
+		"enemy_b_5"     : "img/enemy_b_5.png",
+		"enemy_b_6"     : "img/enemy_b_6.png",
 		"run_1"       : "img/run_1.png",
 		"run_2"       : "img/run_2.png",
 		"run_3"       : "img/run_3.png",
@@ -201,25 +207,54 @@
 	},
 
 	"enemy" : {
-		"speed" : 5,
 		"items":[
 			{
-				"key" : "enemy_1"
+				"speed" : 8,
+				"name": "enemy_a",
+				"pattern":[
+					{
+						"key" : "enemy_1"
+					},
+					{
+						"key" : "enemy_2"
+					},
+					{
+						"key" : "enemy_3"
+					},
+					{
+						"key" : "enemy_4"
+					},
+					{
+						"key" : "enemy_5"
+					},
+					{
+						"key" : "enemy_6"
+					}
+				]
 			},
 			{
-				"key" : "enemy_2"
-			},
-			{
-				"key" : "enemy_3"
-			},
-			{
-				"key" : "enemy_4"
-			},
-			{
-				"key" : "enemy_5"
-			},
-			{
-				"key" : "enemy_6"
+				"speed" : 5,
+				"name" : "enely_b",
+				"pattern": [
+					{
+						"key" : "enemy_b_1"
+					},
+					{
+						"key" : "enemy_b_2"
+					},
+					{
+						"key" : "enemy_b_3"
+					},
+					{
+						"key" : "enemy_b_4"
+					},
+					{
+						"key" : "enemy_b_5"
+					},
+					{
+						"key" : "enemy_b_6"
+					}
+				]
 			}
 		]
 	}

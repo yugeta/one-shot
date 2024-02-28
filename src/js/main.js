@@ -1,4 +1,4 @@
-// import { Load }      from "./load.js"
+import { Load }      from "./load.js"
 import { Canvas }    from "./canvas.js"
 import { Animation } from "./animation.js"
 import { Event }     from "./event.js"
@@ -21,10 +21,15 @@ class Main{
 	load(){
 		new Loading()
 		Loading.set_status("loading")
+
+		new Load().promise.then(()=>{
+			this.zip()
+		})
+	}
+	zip(){
 		new Zip().promise.then(()=> {
 			this.loaded()
 		})
-		// new Load().promise.then(()=> this.loaded())
 	}
 
 	loaded(){

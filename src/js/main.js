@@ -38,7 +38,7 @@ class Main{
 		setTimeout((()=>{
 			Loading.set_status("passive")
 			new Animation()
-		}),500)
+		}),1000)
 		
 		// setTimeout((()=>{Data.status = "pause"}) , 1000)
 	}

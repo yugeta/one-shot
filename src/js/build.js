@@ -137,8 +137,8 @@ export class Build{
 
 	get_current_build_top(chara_pos_x){
 		// const pos_x_1 = chara_pos_x + 20
-		const pos_x_1 = chara_pos_x + Data.setting.chara.collision_offset_w.min * Data.setting.chara.rate
-		const pos_x_2 = chara_pos_x + (Data.setting.chara.run[0].w * Data.setting.chara.rate) - (Data.setting.chara.collision_offset_w.max * Data.setting.chara.rate)
+		const pos_x_1 = chara_pos_x + Data.setting.chara.landing_offset_w.min * Data.setting.chara.rate
+		const pos_x_2 = chara_pos_x + (Data.setting.chara.run[0].w * Data.setting.chara.rate) - (Data.setting.chara.landing_offset_w.max * Data.setting.chara.rate)
 		const height  = Data.setting.chara.run[0].h * Data.setting.chara.rate
 		// console.log(pos_x_1,pos_x_2)
 		// const top_1   = null
@@ -184,8 +184,8 @@ export class Build{
 
 	get_current_build_top(chara_pos_x){
 		// const pos_x_1 = chara_pos_x + 20
-		const pos_x_1 = chara_pos_x + Data.setting.chara.collision_offset_w.min * Data.setting.chara.rate
-		const pos_x_2 = chara_pos_x + (Data.setting.chara.run[0].w * Data.setting.chara.rate) - (Data.setting.chara.collision_offset_w.max * Data.setting.chara.rate)
+		const pos_x_1 = chara_pos_x + Data.setting.chara.landing_offset_w.min * Data.setting.chara.rate
+		const pos_x_2 = chara_pos_x + (Data.setting.chara.run[0].w * Data.setting.chara.rate) - (Data.setting.chara.landing_offset_w.max * Data.setting.chara.rate)
 		const height  = Data.setting.chara.run[0].h * Data.setting.chara.rate
 		// console.log(pos_x_1,pos_x_2)
 		// const top_1   = null

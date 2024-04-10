@@ -2,29 +2,30 @@
  * canvasアニメーション用処理
  */
 
-import { Canvas } from "./canvas.js"
-// import { Bg }     from "./bg.js"
-// import { Build }  from "./build.js"
-// import { Chara }  from "./chara.js"
-import { Data }   from "./data.js"
+import { Canvas }   from "./canvas.js"
+import { Data }     from "./data.js"
+import { Gameover } from "./gameover.js"
 
 export class Animation{
 	constructor(){
-		// this.bg    = new Bg()
-		// this.build = new Build()
-		// this.chara = new Chara()
 		this.run()
 	}
 
+	get rate(){
+		return Data.setting.chara.rate
+	}
+
 	run(){
+		let next_flg = false
 		switch(Data.status){
 			case "play":
 				this.view()
+				next_flg = true
 			break
 
 			case "end":
 			case "pause":
-				// console.log("end")
+				new Gameover()
 			break
 			
 			case "stop":
@@ -35,7 +36,7 @@ export class Animation{
 		if(Data.setting.wait){
 			setTimeout(this.run.bind(this) , Data.setting.wait)
 		}
-		else{
+		else if(next_flg){
 			window.requestAnimationFrame(this.run.bind(this))
 		}
 	}
@@ -58,17 +59,11 @@ export class Animation{
 			const chara_pos  = Data.chara.pos
 			const chara_size = Data.chara.size
 			const chara_body = {
-				x1 : chara_pos.x,
-				x2 : chara_pos.x + chara_size.w,
-				y1 : chara_pos.y,
-				y2 : chara_pos.y + chara_size.h,
+				x1 : chara_pos.x + Data.setting.chara.collision.min.x * this.rate,
+				x2 : chara_pos.x + Data.setting.chara.collision.max.x * this.rate,
+				y1 : chara_pos.y + Data.setting.chara.collision.min.y * this.rate,
+				y2 : chara_pos.y + Data.setting.chara.collision.max.y * this.rate,
 			}
-			// const chara_body = {
-			// 	x1 : chara_pos.x + chara_size.w / 2,
-			// 	x2 : chara_pos.x + chara_size.w / 2,
-			// 	y1 : chara_pos.y,
-			// 	y2 : chara_pos.y + chara_size.h,
-			// }
 			for(const view_enemy of Data.enemy.enemys){
 				const enemy_num  = view_enemy.num
 				const enemy_pos  = view_enemy.pos
@@ -81,12 +76,11 @@ export class Animation{
 					h : enemy_size.h * 0.3,
 				}
 				const enemy_body = {
-					x1 : enemy_pos.x,
-					x2 : enemy_pos.x + enemy_size.w,
-					y1 : enemy_pos.y,
-					y2 : enemy_pos.y + enemy_size.h,
+					x1 : enemy_pos.x + view_enemy.collision.min.x * this.rate,
+					x2 : enemy_pos.x + view_enemy.collision.max.x * this.rate,
+					y1 : enemy_pos.y + view_enemy.collision.min.y * this.rate,
+					y2 : enemy_pos.y + view_enemy.collision.max.y * this.rate,
 				}
-				// console.log(chara_pos,chara_size,enemy_pos,enemy_size)
 				if(chara_body.x1 < enemy_body.x2
 				&& chara_body.x2 > enemy_body.x1
 				&& chara_body.y1 < enemy_body.y2

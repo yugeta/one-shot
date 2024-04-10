@@ -1,3 +1,7 @@
+/**
+ * 自キャラ処理
+ */
+
 import { Data }  from "./data.js"
 
 export class Chara{
@@ -6,16 +10,6 @@ export class Chara{
 	rate      = 1.0
 	pos       = {x:null,y:null}
 	size      = {w:null,h:null}
-
-	jump_flg   = false // ジャンプフラグ
-	jump_cnt   = 0     // ジャンプ継続回数
-	jump_coef  = 0.15  // ジャンプ時間係数
-	jump_acc   = 1     // 重力加速度
-	jump_vel   = 0     // 速度
-	jump_grab  = 7.8   // 重力加速度
-	jump_prev  = null
-	jump_h     = 100
-	jump_down  = false
 
 	foot_buffer = 20
 	
@@ -45,53 +39,102 @@ export class Chara{
 		return Data.build.get_current_build_top(this.pos.x)
 	}
 
+	get jump_h_calc(){
+		return this.pos.y - (Data.setting.chara.rate * 150)
+	}
+
+	
+
 	get pos_y(){
-		const build_top = this.build_top
+
+		// ジャンプ処理
 		if(this.jump_flg){
 
-			if(this.jump_down){
-				this.jump_h -= 3
-				this.jump_h = this.jump_h < 0 ? 0 : this.jump_h
-			}
-
-			// init
-			if(this.jump_cnt === 0){
+			// // ジャンプ（上昇）
+			// if(this.jump_up){
+			// 	this.jump_prev = this.pos.y
+			// 	this.jump_h -= 1
+			// 	this.jump_h = this.jump_h < 0 ? 0 : this.jump_h
+			// 	// console.log("jump-up", this.jump_h)
+			// 	this.pos.y = this.jump_y()
+			// 	this.pos.y = this.pos.y > 0 ? this.pos.y : 0
 				
-			}
+			// }
 
-			// 着地判定
-			else if(this.pos.y > build_top){
+			// // init１回目
+			// if(this.jump_cnt === 0){
+			// 	console.log(1)
+			// }
+
+			// // 着地判定
+			// if(this.pos.y > this.build_top){console.log(111)
+			// 	this.jump_prev = this.pos.y
+			// 	this.pos.y     = this.build_top
+			// 	this.jump_flg  = false
+			// 	this.jump_cnt  = 0
+			// 	this.jump_h    = this.jump_h_calc
+			// 	// console.log(this.pos.y, this.jump_h)
+			// }
+
+			// 計算処理
+			// else{
+				// if(this.jump_up){
+				// 	// this.jump_vel += this.jump_grab * this.jump_coef
+				// 	// this.pos.y    += this.jump_vel  * this.jump_coef
+				// 	// this.jump_h -= Data.setting.chara.rate * 2
+				// 	this.jump_h -= Data.setting.chara.rate * this.jump_grab
+				// 	// this.jump_h -= (this.jump_coef * (this.jump_cnt ** 2)) * Data.setting.chara.rate
+				// 	this.jump_h = this.jump_h < 0 ? 0 : this.jump_h
+				// 	// console.log(this.jump_h)
+				// }
+				// else{
+					this.jump_cnt++
+				// }
+
+				// const y = (this.jump_coef * (this.jump_cnt ** 2) - this.jump_grab * this.jump_cnt) + (this.jump_h * Data.setting.chara.rate)
 				this.jump_prev = this.pos.y
-				this.pos.y = build_top
-				this.jump_flg = false
-				this.jump_cnt = 0
-				this.jump_h   = 100
-			}
+				// this.pos.y = this.jump_y()
+				// console.log(this.jump_cnt, this.jump_h)
+				// this.pos.y = ((this.jump_coef * (this.jump_cnt ** 2) - this.jump_grab * this.jump_cnt) + this.jump_h) * Data.setting.chara.rate
+				// this.pos.y = ((this.jump_coef * (this.jump_cnt ** 2) - this.jump_grab * this.jump_cnt) + this.jump_h) * Data.setting.chara.rate
+				this.pos.y -= Data.setting.chara.rate * this.jump_grab / (this.jump_cnt /10)
+				// this.jump_vel -= this.jump_grab * this.jump_coef
+				// this.pos.y    -= this.jump_vel  * this.jump_coef
 
-			// ２回目以降
-			else{
-				const y = (this.jump_coef * (this.jump_cnt ** 2) - this.jump_grab * this.jump_cnt) + (this.jump_h * Data.setting.chara.rate)
-				this.jump_prev = this.pos.y
-				this.pos.y = y
-			}
-
-			this.jump_cnt++
+				// 上昇終了
+				// console.log((this.jump_prev - this.pos.y) , this.jump_prev, this.pos.y)
+				// if(this.jump_prev < this.pos.y || this.jump_prev - this.pos.y < Data.setting.chara.rate * this.jump_grab / 10){
+				if(this.jump_cnt > 30){
+					this.jump_up = false
+					this.jump_flg = false
+				}
+			// }
+			
+			// console.log(this.jump_cnt,this.pos.y)
 		}
 
-		else if(build_top !== this.pos.y){
+		// 落下処理（ジャンプ落下以外の処理）
+		else if(this.build_top !== this.pos.y){
+			
 			if(this.status !== "fall"){
 				this.jump_vel = 0
 			}
 			this.status = "fall"
 			let fall_flg = false
-			if(build_top > this.pos.y - (this.foot_buffer * Data.setting.chara.rate)){
+			if(this.build_top > this.pos.y - (this.foot_buffer * Data.setting.chara.rate)){
 				fall_flg = true
 			}
 			this.jump_vel += this.jump_grab * this.jump_coef
-			this.pos.y += this.jump_vel  * this.jump_coef
-			if(fall_flg && build_top < this.pos.y){
-				this.status = null
-				this.pos.y = build_top
+			this.pos.y    += this.jump_vel  * this.jump_coef
+
+			// 着地処理
+			if(fall_flg && this.build_top < this.pos.y){
+				this.status   = null
+				this.pos.y    = this.build_top
+				this.jump_h   = this.jump_h_calc
+				this.jump_cnt = 0
+				// this.jump_vel = 1
+				// console.log(this.pos.y, this.jump_h)
 			}
 			
 		}
@@ -198,7 +241,7 @@ export class Chara{
 			case 88: // x code:"KeyX"
 				if(this.status !== "fall" && !this.jump_flg){
 					this.jump_flg = true
-					this.jump_down = true
+					this.jump_up = true
 				}
 			break
 
@@ -217,9 +260,10 @@ export class Chara{
 	key_up(e){
 		switch(e.keyCode){
 			// jump
-			case 32:  // space
+			case 32: // space
 			case 88: // x
-				this.jump_down = false
+				this.jump_up = false
+				this.jump_flg = false
 			break
 
 			// shot-cancel
@@ -233,11 +277,45 @@ export class Chara{
 		}
 	}
 
-	jump(){
-		this.jump_vel += this.jump_acc
+	/**
+	 * Jump
+	 */
 
-		return 0
+	jump_flg   = false // ジャンプフラグ
+	jump_cnt   = 0     // ジャンプ継続回数
+	jump_coef  = 0.4   // ジャンプ時間係数
+	jump_acc   = 1     // 重力加速度
+	jump_vel   = 0     // 速度
+	jump_grab  = 4.8   // 重力加速度
+	jump_prev  = null
+	jump_h     = null
+	jump_up    = false
+
+	// jump2_v0 = 1960
+	// jump2_a  = -9.8
+	// jump2_t  = 0.2
+
+	set_jump_h(){
+
 	}
+
+	// jump(){
+	// 	this.jump_vel += this.jump_acc
+
+	// 	return 0
+	// }
+
+	/**
+	 * v = v0 + at
+	 * y = v0 * t + 0.5 * a * t^2
+	 * （v0 = 初速 , t = 時間 , a = 加速度 , t^2 = tの二乗）
+	 */
+	// jump_y(){
+	// 	// return (this.jump_coef * (this.jump_cnt ** 2) - this.jump_grab * this.jump_cnt) + (this.jump_h * Data.setting.chara.rate)
+	// 	const y = (this.jump_coef * (this.jump_cnt ** 2) - this.jump_grab * this.jump_cnt) + this.jump_h
+	// 	return y * Data.setting.chara.rate
+	// 	// return this.jump2_v0 * this.jump2_t + 0.5 * this.jump2_a * (this.jump2_t ** 2)
+	// }
 
 	
 }

@@ -13,13 +13,15 @@ export class Canvas{
 		this.rate()
 	}
 
+	// canvasタグの全体サイズ
 	canvas_size(){
 		Data.canvas.width  = Data.canvas.offsetWidth
 		Data.canvas.height = Data.canvas.offsetHeight
 	}
 
+	// ビル表示エリアのサイズ
 	frame(){
-		const base_rate = 0.5
+		const base_rate = 0.35
 		Data.back = {
 			width  : Data.canvas.offsetWidth,
 			height : Data.canvas.offsetHeight * base_rate,

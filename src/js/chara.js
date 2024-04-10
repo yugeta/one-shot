@@ -43,74 +43,17 @@ export class Chara{
 		return this.pos.y - (Data.setting.chara.rate * 150)
 	}
 
-	
-
 	get pos_y(){
 
 		// ジャンプ処理
 		if(this.jump_flg){
-
-			// // ジャンプ（上昇）
-			// if(this.jump_up){
-			// 	this.jump_prev = this.pos.y
-			// 	this.jump_h -= 1
-			// 	this.jump_h = this.jump_h < 0 ? 0 : this.jump_h
-			// 	// console.log("jump-up", this.jump_h)
-			// 	this.pos.y = this.jump_y()
-			// 	this.pos.y = this.pos.y > 0 ? this.pos.y : 0
-				
-			// }
-
-			// // init１回目
-			// if(this.jump_cnt === 0){
-			// 	console.log(1)
-			// }
-
-			// // 着地判定
-			// if(this.pos.y > this.build_top){console.log(111)
-			// 	this.jump_prev = this.pos.y
-			// 	this.pos.y     = this.build_top
-			// 	this.jump_flg  = false
-			// 	this.jump_cnt  = 0
-			// 	this.jump_h    = this.jump_h_calc
-			// 	// console.log(this.pos.y, this.jump_h)
-			// }
-
-			// 計算処理
-			// else{
-				// if(this.jump_up){
-				// 	// this.jump_vel += this.jump_grab * this.jump_coef
-				// 	// this.pos.y    += this.jump_vel  * this.jump_coef
-				// 	// this.jump_h -= Data.setting.chara.rate * 2
-				// 	this.jump_h -= Data.setting.chara.rate * this.jump_grab
-				// 	// this.jump_h -= (this.jump_coef * (this.jump_cnt ** 2)) * Data.setting.chara.rate
-				// 	this.jump_h = this.jump_h < 0 ? 0 : this.jump_h
-				// 	// console.log(this.jump_h)
-				// }
-				// else{
-					this.jump_cnt++
-				// }
-
-				// const y = (this.jump_coef * (this.jump_cnt ** 2) - this.jump_grab * this.jump_cnt) + (this.jump_h * Data.setting.chara.rate)
-				this.jump_prev = this.pos.y
-				// this.pos.y = this.jump_y()
-				// console.log(this.jump_cnt, this.jump_h)
-				// this.pos.y = ((this.jump_coef * (this.jump_cnt ** 2) - this.jump_grab * this.jump_cnt) + this.jump_h) * Data.setting.chara.rate
-				// this.pos.y = ((this.jump_coef * (this.jump_cnt ** 2) - this.jump_grab * this.jump_cnt) + this.jump_h) * Data.setting.chara.rate
-				this.pos.y -= Data.setting.chara.rate * this.jump_grab / (this.jump_cnt /10)
-				// this.jump_vel -= this.jump_grab * this.jump_coef
-				// this.pos.y    -= this.jump_vel  * this.jump_coef
-
-				// 上昇終了
-				// console.log((this.jump_prev - this.pos.y) , this.jump_prev, this.pos.y)
-				// if(this.jump_prev < this.pos.y || this.jump_prev - this.pos.y < Data.setting.chara.rate * this.jump_grab / 10){
-				if(this.jump_cnt > 30){
-					this.jump_up = false
-					this.jump_flg = false
-				}
-			// }
-			
-			// console.log(this.jump_cnt,this.pos.y)
+			this.jump_cnt++
+			this.jump_prev = this.pos.y
+			this.pos.y -= Data.setting.chara.rate * this.jump_grab / (this.jump_cnt /10)
+			if(this.jump_cnt > 30){
+				this.jump_up = false
+				this.jump_flg = false
+			}
 		}
 
 		// 落下処理（ジャンプ落下以外の処理）
@@ -133,8 +76,6 @@ export class Chara{
 				this.pos.y    = this.build_top
 				this.jump_h   = this.jump_h_calc
 				this.jump_cnt = 0
-				// this.jump_vel = 1
-				// console.log(this.pos.y, this.jump_h)
 			}
 			
 		}
@@ -278,10 +219,10 @@ export class Chara{
 	}
 
 	/**
-	 * Jump
+	 * Jump setting
 	 */
-
 	jump_flg   = false // ジャンプフラグ
+	jump_up    = false // ジャンプ上昇フラグ
 	jump_cnt   = 0     // ジャンプ継続回数
 	jump_coef  = 0.4   // ジャンプ時間係数
 	jump_acc   = 1     // 重力加速度
@@ -289,33 +230,6 @@ export class Chara{
 	jump_grab  = 4.8   // 重力加速度
 	jump_prev  = null
 	jump_h     = null
-	jump_up    = false
-
-	// jump2_v0 = 1960
-	// jump2_a  = -9.8
-	// jump2_t  = 0.2
-
-	set_jump_h(){
-
-	}
-
-	// jump(){
-	// 	this.jump_vel += this.jump_acc
-
-	// 	return 0
-	// }
-
-	/**
-	 * v = v0 + at
-	 * y = v0 * t + 0.5 * a * t^2
-	 * （v0 = 初速 , t = 時間 , a = 加速度 , t^2 = tの二乗）
-	 */
-	// jump_y(){
-	// 	// return (this.jump_coef * (this.jump_cnt ** 2) - this.jump_grab * this.jump_cnt) + (this.jump_h * Data.setting.chara.rate)
-	// 	const y = (this.jump_coef * (this.jump_cnt ** 2) - this.jump_grab * this.jump_cnt) + this.jump_h
-	// 	return y * Data.setting.chara.rate
-	// 	// return this.jump2_v0 * this.jump2_t + 0.5 * this.jump2_a * (this.jump2_t ** 2)
-	// }
-
 	
+
 }

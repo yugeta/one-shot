@@ -47,13 +47,14 @@ export class Enemy{
 		}
 	}
 
-	view(){return
+	view(){
 		if(this.is_create){
-			const data = {
-				num : this.random_enemy(),
+			const num = this.random_enemy()
+			this.enemys.push({
+				num : num,
 				pos : this.random_pos(),
-			}
-			this.enemys.push(data)
+				collision : Data.setting.enemy.items[num].collision,
+			})
 		}
 		for(const d of this.enemys){
 			this.single_view(d)

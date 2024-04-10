@@ -57,18 +57,18 @@ export class Animation{
 		if(Data.enemy.enemys.length){
 			const chara_pos  = Data.chara.pos
 			const chara_size = Data.chara.size
-			const chara_body = {
-				x1 : chara_pos.x,
-				x2 : chara_pos.x + chara_size.w,
-				y1 : chara_pos.y,
-				y2 : chara_pos.y + chara_size.h,
-			}
 			// const chara_body = {
-			// 	x1 : chara_pos.x + chara_size.w / 2,
-			// 	x2 : chara_pos.x + chara_size.w / 2,
+			// 	x1 : chara_pos.x,
+			// 	x2 : chara_pos.x + chara_size.w,
 			// 	y1 : chara_pos.y,
 			// 	y2 : chara_pos.y + chara_size.h,
 			// }
+			const chara_body = {
+				x1 : chara_pos.x + Data.setting.chara.collision.min.x,
+				x2 : chara_pos.x + Data.setting.chara.collision.max.x,
+				y1 : chara_pos.y + Data.setting.chara.collision.min.y,
+				y2 : chara_pos.y + Data.setting.chara.collision.max.y,
+			}
 			for(const view_enemy of Data.enemy.enemys){
 				const enemy_num  = view_enemy.num
 				const enemy_pos  = view_enemy.pos
@@ -81,12 +81,11 @@ export class Animation{
 					h : enemy_size.h * 0.3,
 				}
 				const enemy_body = {
-					x1 : enemy_pos.x,
-					x2 : enemy_pos.x + enemy_size.w,
-					y1 : enemy_pos.y,
-					y2 : enemy_pos.y + enemy_size.h,
+					x1 : enemy_pos.x + view_enemy.collision.min.x,
+					x2 : enemy_pos.x + view_enemy.collision.max.x,
+					y1 : enemy_pos.y + view_enemy.collision.min.y,
+					y2 : enemy_pos.y + view_enemy.collision.max.y,
 				}
-				// console.log(chara_pos,chara_size,enemy_pos,enemy_size)
 				if(chara_body.x1 < enemy_body.x2
 				&& chara_body.x2 > enemy_body.x1
 				&& chara_body.y1 < enemy_body.y2

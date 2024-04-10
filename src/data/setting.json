@@ -124,9 +124,13 @@
 		"pos_x" : 100,
 		"speed" : 7,
 		"rate" : 1.0,
-		"collision_offset_w" : {
+		"landing_offset_w" : {
 			"min" : 10,
 			"max" : 40
+		},
+		"collision" : {
+			"min" : {"x":12, "y":7},
+			"max" : {"x":45, "y":60}
 		},
 		"run":[
 			{
@@ -215,6 +219,10 @@
 			{
 				"speed" : 8,
 				"name": "enemy_a",
+				"collision" : {
+					"min" : {"x": 9, "y": 4},
+					"max" : {"x":34, "y":34}
+				},
 				"pattern":[
 					{
 						"key" : "enemy_1"
@@ -239,6 +247,10 @@
 			{
 				"speed" : 5,
 				"name" : "enely_b",
+				"collision" : {
+					"min" : {"x": 9, "y": 4},
+					"max" : {"x":34, "y":34}
+				},
 				"pattern": [
 					{
 						"key" : "enemy_b_1"

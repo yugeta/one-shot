@@ -43,10 +43,6 @@ export class Chara{
 		return this.chara_data(this.chara_num)
 	}
 
-	// get jump_h_calc(){
-	// 	return this.pos.y - (Data.setting.chara.rate * 150)
-	// }
-
 	get pos_y(){
 
 		// ジャンプ処理
@@ -78,13 +74,11 @@ export class Chara{
 			if(fall_flg && this.build_top < this.pos.y){
 				this.status   = null
 				this.pos.y    = this.build_top
-				// this.jump_h   = this.jump_h_calc
 				this.jump_cnt = 0
 			}
 			else if(this.pos.y >= Data.canvas.height - this.data.h * Data.setting.chara.rate){
 				this.status   = null
 				this.pos.y    = Data.canvas.height - this.data.h * Data.setting.chara.rate
-				// this.jump_h   = this.jump_h_calc
 				this.jump_cnt = 0
 			}
 			
@@ -107,7 +101,6 @@ export class Chara{
 	}
 
 	view(){
-		// const d   = this.chara_data(this.chara_num)
 		const d   = this.data
 		const img = d.img
 		const x   = this.pos.x
@@ -261,7 +254,4 @@ export class Chara{
 	jump_vel   = 0     // 速度
 	jump_grab  = 4.8   // 重力加速度
 	jump_prev  = null
-	// jump_h     = null
-	
-
 }

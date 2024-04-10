@@ -1,7 +1,6 @@
 import { Data }  from "./data.js"
 
 export class Enemy{
-	// pattern_num = 0
 	enemys = []
 	max_count = 2
 
@@ -122,10 +121,4 @@ export class Enemy{
 			this.enemys.splice(i,1)
 		}
 	}
-
-	collision(){
-
-	}
-
-
 }

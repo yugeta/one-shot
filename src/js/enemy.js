@@ -121,4 +121,25 @@ export class Enemy{
 			this.enemys.splice(i,1)
 		}
 	}
+
+	hit_collision(shot){
+		for(let i=this.enemys.length-1; i>=0; i--){
+			const data = this.enemys[i]
+			const item = Data.setting.enemy.items[data.num]
+			const d    = item.pattern[~~data.pattern_num]
+			const enemy = {
+				x1 : data.pos.x + item.collision.min.x * this.rate,
+				x2 : data.pos.x + d.w * this.rate + item.collision.max.x * this.rate,
+				y1 : data.pos.y + item.collision.min.y * this.rate,
+				y2 : data.pos.y + d.h * this.rate + item.collision.max.y * this.rate,
+			}
+			if(shot.x1 < enemy.x2
+			&& shot.x2 > enemy.x1
+			&& shot.y1 < enemy.y2
+			&& shot.y2 > enemy.y1){
+				this.enemys.splice(i,1)
+				return true
+			}
+		}
+	}
 }

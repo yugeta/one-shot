@@ -40,6 +40,7 @@ export class Shot{
 	view(){
 		if(!this.bullets.length){return}
 		const removes = []
+		const collision = this.datas[this.status].collision
 		for(let i=0; i<this.bullets.length; i++){
 			const bullet = this.bullets[i]
 			const img = bullet.img
@@ -47,6 +48,10 @@ export class Shot{
 			const y   = bullet.y
 			const w   = bullet.w * Data.setting.chara.rate
 			const h   = bullet.h * Data.setting.chara.rate
+			const cx  = x + collision.min.x * this.rate
+			const cy  = y + collision.min.y * this.rate
+			const cw  = (collision.max.x - collision.min.x) * this.rate
+			const ch  = (collision.max.y - collision.min.y) * this.rate
 			Data.ctx.drawImage(img, x, y, w, h)
 
 			// full
@@ -60,16 +65,11 @@ export class Shot{
 
 			// collision
 			if(Data.setting.shot.collision_width){
-				const collision = this.datas[this.status].collision
+				
 				Data.ctx.lineWidth = Data.setting.shot.line_width
 				Data.ctx.strokeStyle = Data.setting.shot.stroke_style || "transparent"
 				Data.ctx.beginPath()
-				Data.ctx.rect(
-					x + collision.min.x * this.rate,
-					y + collision.min.y * this.rate,
-					(collision.max.x - collision.min.x) * this.rate,
-					(collision.max.y - collision.min.y) * this.rate,
-				)
+				Data.ctx.rect(cx,cy,cw,ch)
 				Data.ctx.stroke()
 			}
 
@@ -88,7 +88,17 @@ export class Shot{
 			if(x + w > Data.canvas.width){
 				removes.push(i)
 			}
+			else if(Data.enemy.hit_collision({
+				x1: cx,
+				x2: cx + cw,
+				y1: cy,
+				y2: cy + ch,
+			})){
+				console.log("enemy hit !")
+				removes.push(i)
+			}
 		}
+
 		this.remove(removes)
 	}
 
@@ -98,5 +108,4 @@ export class Shot{
 			this.bullets.splice(removes[i], 1)
 		}
 	}
-
 }

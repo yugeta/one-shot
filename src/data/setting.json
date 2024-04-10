@@ -205,7 +205,7 @@
 		"limit_count" : 3,
 
 		"line_width"   : 0,
-		"collision_width" : 1,
+		"collision_width" : 0,
 		"middle_line" : 0,
 
 		"stroke_style" : "red",

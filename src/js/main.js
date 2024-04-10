@@ -1,3 +1,7 @@
+/**
+ * 初期起動用モジュール
+ */
+
 import { Load }      from "./load.js"
 import { Canvas }    from "./canvas.js"
 import { Animation } from "./animation.js"

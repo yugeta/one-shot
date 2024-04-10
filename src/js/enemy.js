@@ -47,7 +47,7 @@ export class Enemy{
 		}
 	}
 
-	view(){
+	view(){return
 		if(this.is_create){
 			const data = {
 				num : this.random_enemy(),

@@ -1,3 +1,7 @@
+/**
+ * ビルの表示
+ */
+
 import { Data }   from "./data.js"
 
 export class Build{
@@ -14,6 +18,7 @@ export class Build{
 		this.set_event()
 	}
 
+	// ビルの1番目のデータを取得
 	get first_build(){
 		const data = Data.images.find(e => e.key === Data.setting.build.items[0].key)
 		return data || null
@@ -23,6 +28,7 @@ export class Build{
 		return Data.setting.build.size_rate
 	}
 
+	// スクロールスピード
 	set_speed(){
 		this.speed = Data.speed(Data.setting.build.speed)
 	}

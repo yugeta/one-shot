@@ -1,3 +1,7 @@
+/**
+ * canvasアニメーション用処理
+ */
+
 import { Canvas } from "./canvas.js"
 // import { Bg }     from "./bg.js"
 // import { Build }  from "./build.js"

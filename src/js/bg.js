@@ -1,3 +1,7 @@
+/**
+ * 背景(ビル影等)のレイヤー表示 : 3段階
+ */
+
 import { Data }   from "./data.js"
 
 export class Bg{

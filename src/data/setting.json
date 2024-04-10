@@ -208,18 +208,23 @@
 		"collision_width" : 1,
 		"middle_line" : 0,
 
-		"collision" : {
-			"min" : {"x":10, "y": 1},
-			"max" : {"x":19, "y": 4}
-		},
-
 		"stroke_style" : "red",
-		
-		"speed"  : 10,
-		"jump_vel" : -100,
+
 		"items" : {
-			"bullet_1":{},
-			"bullet_2":{}
+			"bullet_1":{
+				"speed"  : 10,
+				"collision" : {
+					"min" : {"x":10, "y": 1},
+					"max" : {"x":19, "y": 4}
+				}
+			},
+			"bullet_2":{
+				"speed"  : 10,
+				"collision" : {
+					"min" : {"x":10, "y": 1},
+					"max" : {"x":19, "y": 4}
+				}
+			}
 		}
 	},
 

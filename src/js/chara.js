@@ -44,7 +44,6 @@ export class Chara{
 	}
 
 	get pos_y(){
-
 		// ジャンプ処理
 		if(this.jump_flg){
 			this.jump_cnt++
@@ -58,8 +57,8 @@ export class Chara{
 
 		// 落下処理（ジャンプ落下以外の処理）
 		else if(this.build_top !== this.pos.y){
-			
-			if(this.status !== "fall"){
+			if(!this.fall_flg){
+				this.fall_flg = true
 				this.jump_vel = 0
 			}
 			this.status = "fall"
@@ -72,12 +71,14 @@ export class Chara{
 
 			// 着地処理
 			if(fall_flg && this.build_top < this.pos.y){
-				this.status   = null
+				this.fall_flg   = null
+				this.status = null
 				this.pos.y    = this.build_top
 				this.jump_cnt = 0
 			}
 			else if(this.pos.y >= Data.canvas.height - this.data.h * Data.setting.chara.rate){
-				this.status   = null
+				this.fall_flg   = null
+				this.status = null
 				this.pos.y    = Data.canvas.height - this.data.h * Data.setting.chara.rate
 				this.jump_cnt = 0
 			}
@@ -186,7 +187,6 @@ export class Chara{
 		}
 
 		switch(this.status){
-
 			case "fall":
 				return Data.setting.chara.jump_run[1]
 
@@ -205,7 +205,7 @@ export class Chara{
 			// jump
 			case 32: // space code:"Space"
 			case 88: // x code:"KeyX"
-				if(this.status !== "fall" && !this.jump_flg){
+				if(!this.fall_flg && !this.jump_flg){
 					this.jump_flg = true
 					this.jump_up = true
 				}
@@ -232,9 +232,9 @@ export class Chara{
 				this.jump_flg = false
 			break
 
-			// shot-cancel
+			// shot
 			case 90: //z
-				this.status = null
+				// this.status = null
 			break
 
 			default:
@@ -247,6 +247,7 @@ export class Chara{
 	 * Jump setting
 	 */
 	jump_flg   = false // ジャンプフラグ
+	fall_flg   = null  // 落ちフラグ
 	jump_up    = false // ジャンプ上昇フラグ
 	jump_cnt   = 0     // ジャンプ継続回数
 	jump_coef  = 0.4   // ジャンプ時間係数

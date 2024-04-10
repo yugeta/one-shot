@@ -2,6 +2,7 @@ import { Data }  from "./data.js"
 
 export class Shot{
 	status  = "bullet_1"
+	item_num = 0
 	bullets = []
 
 	constructor(){
@@ -14,6 +15,10 @@ export class Shot{
 
 	get rate(){
 		return Data.setting.chara.rate
+	}
+
+	get speed(){
+		return this.datas[this.status].speed
 	}
 
 	get_data(key){
@@ -55,14 +60,15 @@ export class Shot{
 
 			// collision
 			if(Data.setting.shot.collision_width){
+				const collision = this.datas[this.status].collision
 				Data.ctx.lineWidth = Data.setting.shot.line_width
 				Data.ctx.strokeStyle = Data.setting.shot.stroke_style || "transparent"
 				Data.ctx.beginPath()
 				Data.ctx.rect(
-					x + Data.setting.shot.collision.min.x * this.rate,
-					y + Data.setting.shot.collision.min.y * this.rate,
-					(Data.setting.shot.collision.max.x - Data.setting.shot.collision.min.x) * this.rate,
-					(Data.setting.shot.collision.max.y - Data.setting.shot.collision.min.y) * this.rate,
+					x + collision.min.x * this.rate,
+					y + collision.min.y * this.rate,
+					(collision.max.x - collision.min.x) * this.rate,
+					(collision.max.y - collision.min.y) * this.rate,
 				)
 				Data.ctx.stroke()
 			}
@@ -77,7 +83,7 @@ export class Shot{
 				Data.ctx.stroke()
 			}
 
-			bullet.x += Data.setting.shot.speed
+			bullet.x += this.speed
 
 			if(x + w > Data.canvas.width){
 				removes.push(i)

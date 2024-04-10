@@ -1,7 +1,7 @@
 import { Data }  from "./data.js"
 
 export class Enemy{
-	pattern_num = 0
+	// pattern_num = 0
 	enemys = []
 	max_count = 2
 
@@ -54,6 +54,7 @@ export class Enemy{
 				num : num,
 				pos : this.random_pos(),
 				collision : Data.setting.enemy.items[num].collision,
+				pattern_num : 0,
 			})
 		}
 		for(const d of this.enemys){
@@ -64,7 +65,7 @@ export class Enemy{
 
 	single_view(data){
 		const item = Data.setting.enemy.items[data.num]
-		const d    = item.pattern[~~this.pattern_num]
+		const d    = item.pattern[~~data.pattern_num]
 		const img  = d.img
 		const x    = data.pos.x
 		const y    = data.pos.y
@@ -74,9 +75,9 @@ export class Enemy{
 		item.h = h
 		Data.ctx.drawImage(img, x, y, w, h)
 
-		this.pattern_num += 1 / item.speed
-		if(this.pattern_num >= Data.setting.enemy.items[data.num].pattern.length-1){
-			this.pattern_num = 0
+		data.pattern_num += 1 / item.speed
+		if(data.pattern_num >= Data.setting.enemy.items[data.num].pattern.length-1){
+			data.pattern_num = 0
 		}
 
 		if(Data.setting.enemy.line_width){
@@ -86,7 +87,25 @@ export class Enemy{
 			Data.ctx.beginPath()
 			Data.ctx.rect(x,y,w,h)
 			Data.ctx.stroke()
-			// middle-line
+		}
+
+		if(Data.setting.enemy.collision_width){
+			// frame
+			Data.ctx.lineWidth = Data.setting.enemy.line_width
+			Data.ctx.strokeStyle = Data.setting.enemy.stroke_style || "transparent"
+			Data.ctx.beginPath()
+			Data.ctx.rect(
+				x + item.collision.min.x * this.rate,
+				y + item.collision.min.y * this.rate,
+				(item.collision.min.x + item.collision.max.x) * this.rate,
+				(item.collision.min.y + item.collision.max.y) * this.rate
+			)
+			Data.ctx.stroke()
+		}
+
+		if(Data.setting.enemy.middle_line){
+			Data.ctx.lineWidth = Data.setting.enemy.line_width
+			Data.ctx.strokeStyle = Data.setting.enemy.stroke_style || "transparent"
 			Data.ctx.beginPath()
 			Data.ctx.moveTo(x+w/2, 0)
 			Data.ctx.lineTo(x+w/2, Data.canvas.height)
@@ -99,7 +118,7 @@ export class Enemy{
 	clear(){
 		for(let i=this.enemys.length-1; i>=0; i--){
 			const data = this.enemys[i]
-			if(data.pos.x >= -Data.setting.enemy.items[data.num].pattern[~~this.pattern_num].w){continue}
+			if(data.pos.x >= -Data.setting.enemy.items[data.num].pattern[~~data.pattern_num].w){continue}
 			this.enemys.splice(i,1)
 		}
 	}

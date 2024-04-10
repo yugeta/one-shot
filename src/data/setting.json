@@ -118,7 +118,10 @@
 	},
 
 	"chara":{
-		"line_width" : 1,
+		"line_width" : 0,
+		"collision_width" : 1,
+		"middle_line" : 0,
+
 		"stroke_style": "white",
 
 		"pos_x" : 100,
@@ -129,8 +132,8 @@
 			"max" : 40
 		},
 		"collision" : {
-			"min" : {"x":12, "y":7},
-			"max" : {"x":45, "y":60}
+			"min" : {"x":15, "y": 4},
+			"max" : {"x":45, "y":55}
 		},
 		"run":[
 			{
@@ -212,7 +215,10 @@
 	},
 
 	"enemy" : {
-		"line_width"   : 1,
+		"line_width" : 0,
+		"collision_width" : 1,
+		"middle_line" : 0,
+
 		"stroke_style" : "white",
 
 		"items":[
@@ -220,8 +226,8 @@
 				"speed" : 8,
 				"name": "enemy_a",
 				"collision" : {
-					"min" : {"x": 9, "y": 4},
-					"max" : {"x":34, "y":34}
+					"min" : {"x": 9, "y": 0},
+					"max" : {"x":32, "y":27}
 				},
 				"pattern":[
 					{
@@ -248,8 +254,8 @@
 				"speed" : 5,
 				"name" : "enely_b",
 				"collision" : {
-					"min" : {"x": 9, "y": 4},
-					"max" : {"x":34, "y":34}
+					"min" : {"x":10, "y": 4},
+					"max" : {"x":18, "y":22}
 				},
 				"pattern": [
 					{

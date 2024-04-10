@@ -39,9 +39,13 @@ export class Chara{
 		return Data.build.get_current_build_top(this.pos.x)
 	}
 
-	get jump_h_calc(){
-		return this.pos.y - (Data.setting.chara.rate * 150)
+	get data(){
+		return this.chara_data(this.chara_num)
 	}
+
+	// get jump_h_calc(){
+	// 	return this.pos.y - (Data.setting.chara.rate * 150)
+	// }
 
 	get pos_y(){
 
@@ -74,7 +78,13 @@ export class Chara{
 			if(fall_flg && this.build_top < this.pos.y){
 				this.status   = null
 				this.pos.y    = this.build_top
-				this.jump_h   = this.jump_h_calc
+				// this.jump_h   = this.jump_h_calc
+				this.jump_cnt = 0
+			}
+			else if(this.pos.y >= Data.canvas.height - this.data.h * Data.setting.chara.rate){
+				this.status   = null
+				this.pos.y    = Data.canvas.height - this.data.h * Data.setting.chara.rate
+				// this.jump_h   = this.jump_h_calc
 				this.jump_cnt = 0
 			}
 			
@@ -97,7 +107,8 @@ export class Chara{
 	}
 
 	view(){
-		const d   = this.chara_data(this.chara_num)
+		// const d   = this.chara_data(this.chara_num)
+		const d   = this.data
 		const img = d.img
 		const x   = this.pos.x
 		const y   = this.pos_y
@@ -111,6 +122,7 @@ export class Chara{
 		}
 		this.speed++
 
+		// full
 		if(Data.setting.chara.line_width){
 			// frame
 			Data.ctx.lineWidth = Data.setting.chara.line_width
@@ -118,7 +130,27 @@ export class Chara{
 			Data.ctx.beginPath()
 			Data.ctx.rect(x,y,w,h)
 			Data.ctx.stroke()
-			// middle-line
+		}
+
+		// collision
+		if(Data.setting.chara.collision_width){
+			// frame
+			Data.ctx.lineWidth = Data.setting.chara.line_width
+			Data.ctx.strokeStyle = Data.setting.chara.stroke_style || "transparent"
+			Data.ctx.beginPath()
+			Data.ctx.rect(
+				x + Data.setting.chara.collision.min.x * Data.setting.chara.rate,
+				y + Data.setting.chara.collision.min.y * Data.setting.chara.rate,
+				(Data.setting.chara.collision.max.x - Data.setting.chara.collision.min.x) * Data.setting.chara.rate,
+				(Data.setting.chara.collision.max.y - Data.setting.chara.collision.min.y) * Data.setting.chara.rate
+			)
+			Data.ctx.stroke()
+		}
+
+		// middle-line
+		if(Data.setting.chara.middle_line){
+			Data.ctx.lineWidth = Data.setting.chara.line_width
+			Data.ctx.strokeStyle = Data.setting.chara.stroke_style || "transparent"
 			Data.ctx.beginPath()
 			Data.ctx.moveTo(x+w/2, 0)
 			Data.ctx.lineTo(x+w/2, Data.canvas.height)
@@ -229,7 +261,7 @@ export class Chara{
 	jump_vel   = 0     // 速度
 	jump_grab  = 4.8   // 重力加速度
 	jump_prev  = null
-	jump_h     = null
+	// jump_h     = null
 	
 
 }
